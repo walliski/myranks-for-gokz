@@ -14,31 +14,49 @@ BEGIN
     DECLARE Percent DECIMAL(6,4);
     DECLARE Score INT DEFAULT 0;
 
+    -- SQL Queries borrowed from GOKZ Localranks
+    -- https://bitbucket.org/kztimerglobalteam/gokz/src/master/addons/sourcemod/scripting/gokz-localranks/db/sql.sp
     IF p_Teleports = 0 THEN
-        SELECT count(RunTime)
+        SELECT COUNT(DISTINCT Times.SteamID32)
         FROM Times
-        WHERE RunTime <= (SELECT RunTime FROM Times WHERE SteamID32 = p_SteamID32 AND MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports = 0)
-        AND MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports = 0
-        ORDER BY RunTime
+        INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+        WHERE Players.Cheater=0 AND Times.MapCourseID=p_MapCourseID
+        AND Times.Mode=p_Mode AND Times.Teleports=0
+        AND Times.RunTime <=
+            (SELECT MIN(Times.RunTime)
+            FROM Times
+            INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+            WHERE Players.Cheater=0 AND Times.SteamID32=p_SteamID32 AND Times.MapCourseID=p_MapCourseID
+            AND Times.Mode=p_Mode AND Times.Teleports=0)
         INTO Rank;
     ELSE
-        SELECT count(RunTime)
+        SELECT COUNT(DISTINCT Times.SteamID32)
         FROM Times
-        WHERE RunTime <= (SELECT RunTime FROM Times WHERE SteamID32 = p_SteamID32 AND MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports != 0)
-        AND MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports != 0
-        ORDER BY RunTime
+            INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+            WHERE Players.Cheater=0 AND Times.MapCourseID=p_MapCourseID
+            AND Times.Mode=p_Mode
+            AND Times.RunTime <=
+                (SELECT MIN(Times.RunTime)
+                FROM Times
+                INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+                WHERE Players.Cheater=0 AND Times.SteamID32=p_SteamID32 AND Times.MapCourseID=p_MapCourseID
+                AND Times.Mode=p_Mode)
         INTO Rank;
     END IF;
 
     IF p_Teleports = 0 THEN
-        SELECT count(RunTime)
+        SELECT COUNT(DISTINCT Times.SteamID32)
         FROM Times
-        WHERE MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports = 0
+        INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+        WHERE Players.Cheater=0
+        AND Times.MapCourseID=p_MapCourseID AND Times.Mode=p_Mode AND Times.Teleports=0
         INTO TotalCount;
     ELSE
-        SELECT count(RunTime)
+        SELECT COUNT(DISTINCT Times.SteamID32)
         FROM Times
-        WHERE MapCourseID = p_MapCourseID AND Mode = p_Mode AND Style = 0 AND Teleports != 0
+        INNER JOIN Players ON Players.SteamID32=Times.SteamID32
+        WHERE Players.Cheater=0
+        AND Times.MapCourseID=p_MapCourseID AND Times.Mode=p_Mode
         INTO TotalCount;
     END IF;
 
