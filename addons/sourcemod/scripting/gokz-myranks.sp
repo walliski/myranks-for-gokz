@@ -33,6 +33,9 @@ public void OnAllPluginsLoaded()
     if (gH_DB != null)
     {
         g_DBType = GOKZ_DB_GetDatabaseType();
+        if (g_DBType != DatabaseType_MySQL) {
+            SetFailState("Only MySQL/MariaDB databases are supported!");
+        }
     }
 }
 
@@ -42,7 +45,7 @@ public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
     g_DBType = DBType;
 
     if (g_DBType != DatabaseType_MySQL) {
-        ThrowError("Only MySQL/MariaDB databases are supported!");
+        SetFailState("Only MySQL/MariaDB databases are supported!");
     }
 
     DB_CreateTables();
