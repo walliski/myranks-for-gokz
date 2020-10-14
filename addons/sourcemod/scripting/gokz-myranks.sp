@@ -3,8 +3,8 @@
 #include <gokz/localdb>
 #include <gokz/localranks>
 
-//#include <gokz-myranks-sql.sp>
 #include "gokz-myranks-commands.sp"
+#include "gokz-myranks-sql.sp"
 
 #pragma newdecls required
 #pragma semicolon 1
@@ -36,6 +36,8 @@ public void OnAllPluginsLoaded()
         if (g_DBType != DatabaseType_MySQL) {
             SetFailState("Only MySQL/MariaDB databases are supported!");
         }
+
+        DB_CreateTables();
     }
 }
 
@@ -49,25 +51,20 @@ public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
     }
 
     DB_CreateTables();
-    DB_CreateProcedures();
+}
+
+/* Error report callback for failed transactions */
+// Stolen from GOKZ
+public void DB_TxnFailure_Generic(Handle db, any data, int numQueries, const char[] error, int failIndex, any[] queryData)
+{
+    LogError("Database transaction error: %s", error);
 }
 
 void DB_CreateTables()
 {
-    // Transaction txn = SQL_CreateTransaction();
-    
-    // txn.AddQuery(someQueryName);
-    // }
-    
-    // SQL_ExecuteTransaction(gH_DB, txn, _, _, _, DBPrio_High);
-} 
+    Transaction txn = SQL_CreateTransaction();
 
-void DB_CreateProcedures()
-{
-    // Transaction txn = SQL_CreateTransaction();
-    
-    // txn.AddQuery(someQueryName);
-    // }
-    
-    // SQL_ExecuteTransaction(gH_DB, txn, _, _, _, DBPrio_High);
+    txn.AddQuery(table_create_Myrank);
+
+    SQL_ExecuteTransaction(gH_DB, txn, _, DB_TxnFailure_Generic, _, DBPrio_High);
 }

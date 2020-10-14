@@ -2,7 +2,7 @@
 
 DELIMITER //
 
-CREATE OR REPLACE PROCEDURE GetTotalRank(
+CREATE OR REPLACE PROCEDURE UpdatePlayerScore(
     IN p_SteamID32 INT(10),
     IN p_Mode TINYINT(3)
 )
@@ -44,12 +44,12 @@ BEGIN
 
     CLOSE maplist;
 
-    SELECT Score;
+    UPDATE Myrank SET Score=Score, LastUpdate=CURRENT_TIMESTAMP WHERE SteamID32 = p_SteamID32;
 END;
 //
 
 DELIMITER ;
 
--- CALL GetTotalRank(20935526, 2);
+-- CALL UpdatePlayerScore(20935526, 2);
 
 
