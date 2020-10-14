@@ -3,7 +3,6 @@
 #include <gokz/localdb>
 #include <gokz/localranks>
 
-#include "gokz-myranks-commands.sp"
 #include "gokz-myranks-sql.sp"
 
 #pragma newdecls required
@@ -20,9 +19,6 @@ public Plugin myinfo =
 
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
-
-bool g_Calculating[MAXPLAYERS+1];
-int g_Points[MAXPLAYERS+1];
 
 public void OnPluginStart()
 {
@@ -93,17 +89,7 @@ void UpdateScore(int client) {
 
     Transaction txn = SQL_CreateTransaction();
     txn.AddQuery(query);
-    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_UpdateScore, DB_TxnFailure_Generic, data, _);
-}
-
-public void DB_TxnSuccess_UpdateScore(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
-{
-    data.Reset();
-    int client = GetClientOfUserId(data.ReadCell());
-    int steamID = data.ReadCell();
-    delete data;
-
-    PrintToServer("I Did something for steamid: %d %d", client, steamID);
+    SQL_ExecuteTransaction(gH_DB, txn, _, DB_TxnFailure_Generic, data, _);
 }
 
 public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
@@ -132,4 +118,40 @@ void DB_CreateTables()
     txn.AddQuery(table_create_Myrank);
 
     SQL_ExecuteTransaction(gH_DB, txn, _, DB_TxnFailure_Generic, _, DBPrio_High);
+}
+
+void RegisterCommands() {
+    RegConsoleCmd("sm_score", Command_Score, "Shows your score");
+}
+
+public Action Command_Score(int client, int args)
+{
+    int steamID = GetSteamAccountID(client);
+    char query[1024];
+
+    DataPack data = new DataPack();
+    data.WriteCell(GetClientUserId(client));
+
+    FormatEx(query, sizeof(query), player_get_score, steamID);
+
+    Transaction txn = SQL_CreateTransaction();
+    txn.AddQuery(query);
+    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_GetPlayerScore, DB_TxnFailure_Generic, data, _);
+
+    return Plugin_Handled;
+}
+
+public void DB_TxnSuccess_GetPlayerScore(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
+{
+    data.Reset();
+    int client = GetClientOfUserId(data.ReadCell());
+    int score;
+    delete data;
+
+    if (SQL_FetchRow(results[0]))
+    {
+        score = SQL_FetchInt(results[0], 0);
+    }
+
+    PrintToChat(client, "Your score is: %d", score);
 }
