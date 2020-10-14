@@ -21,6 +21,9 @@ public Plugin myinfo =
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
 
+bool g_Calculating[MAXPLAYERS+1];
+int g_Points[MAXPLAYERS+1];
+
 public void OnPluginStart()
 {
     // Register commands
@@ -39,6 +42,68 @@ public void OnAllPluginsLoaded()
 
         DB_CreateTables();
     }
+}
+
+public void OnClientAuthorized(int client, const char[] auth)
+{
+    DB_SetupClient(client);
+}
+
+void DB_SetupClient(int client)
+{
+    if (IsFakeClient(client))
+    {
+        return;
+    }
+
+    char query[1024];
+    int steamID = GetSteamAccountID(client);
+
+    DataPack data = new DataPack();
+    data.WriteCell(GetClientUserId(client));
+    data.WriteCell(steamID);
+
+    FormatEx(query, sizeof(query), player_insert, steamID);
+
+    Transaction txn = SQL_CreateTransaction();
+    txn.AddQuery(query);
+    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_SetupClient, DB_TxnFailure_Generic, data, DBPrio_High);
+}
+
+public void DB_TxnSuccess_SetupClient(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
+{
+    data.Reset();
+    int client = GetClientOfUserId(data.ReadCell());
+    //int steamID = data.ReadCell();
+    delete data;
+
+    UpdateScore(client);
+}
+
+void UpdateScore(int client) {
+    int steamID = GetSteamAccountID(client);
+    int mode = 2;
+    char query[1024];
+
+    DataPack data = new DataPack();
+    data.WriteCell(GetClientUserId(client));
+    data.WriteCell(steamID);
+
+    FormatEx(query, sizeof(query), trigger_score_update, steamID, mode);
+
+    Transaction txn = SQL_CreateTransaction();
+    txn.AddQuery(query);
+    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_UpdateScore, DB_TxnFailure_Generic, data, _);
+}
+
+public void DB_TxnSuccess_UpdateScore(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
+{
+    data.Reset();
+    int client = GetClientOfUserId(data.ReadCell());
+    int steamID = data.ReadCell();
+    delete data;
+
+    PrintToServer("I Did something for steamid: %d %d", client, steamID);
 }
 
 public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
