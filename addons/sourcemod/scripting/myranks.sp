@@ -3,14 +3,14 @@
 #include <gokz/localdb>
 #include <gokz/localranks>
 
-#include "gokz-myranks-sql.sp"
+#include "myranks-sql.sp"
 
 #pragma newdecls required
 #pragma semicolon 1
 
 public Plugin myinfo =
 {
-    name = "GOKZ MyRank",
+    name = "MyRank for GOKZ",
     author = "Walliski",
     description = "KZTimer-isch ranks for GOKZ on MySQL DB",
     version = "0.0.1",
