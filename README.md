@@ -25,3 +25,10 @@ get extra points from challenges, you will not get extra points from LJs, or ext
 
 Have taken example from a lot of things from GOKZ Plugin, and mangled it. Most noticeable the queries used in the stored
 procedures.
+
+## Installation
+
+Compile the plugin, it should only require GOKZ, nothing more. Copy it over to your server.
+
+Make sure you are running MySQL/MariaDB. Put in the stored procedures from the two `.sql` files into your GOKZ database.
+Then watch the world burn, because this is not tested with anything else than a random MariaDB version in Docker...
