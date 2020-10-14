@@ -78,7 +78,7 @@ public void DB_TxnSuccess_SetupClient(Handle db, DataPack data, int numQueries, 
 
 void UpdateScore(int client) {
     int steamID = GetSteamAccountID(client);
-    int mode = 2;
+    int mode = GOKZ_GetDefaultMode();
     char query[1024];
 
     DataPack data = new DataPack();
