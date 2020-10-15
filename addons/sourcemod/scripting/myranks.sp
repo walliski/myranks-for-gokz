@@ -3,7 +3,7 @@
 #include <gokz/localdb>
 #include <gokz/localranks>
 
-#include "myranks-sql.sp"
+#include "myranks/db/sql.sp"
 
 #pragma newdecls required
 #pragma semicolon 1
