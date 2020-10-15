@@ -28,10 +28,11 @@ procedures.
 
 ## Installation
 
-Compile the plugin, it should only require GOKZ, nothing more. Copy it over to your server.
+Compile the plugin, it should only require GOKZ, nothing more. Copy it over to your server. Remember the translations!
 
-Make sure you are running MySQL/MariaDB. Put in the stored procedures from the two `.sql` files into your GOKZ database.
-Then watch the world burn, because this is not tested with anything else than a random MariaDB version in Docker...
+Make sure you are running MySQL/MariaDB. Put in the stored procedures from the `.sql` files in the `sql` folder into
+your GOKZ database. Then watch the world burn, because this is not tested with anything else than a random MariaDB
+version in Docker...
 
 ## TODO
 
