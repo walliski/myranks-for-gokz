@@ -22,6 +22,8 @@ DatabaseType g_DBType = DatabaseType_None;
 #include "myranks/db/helpers.sp"
 #include "myranks/db/setup_client.sp"
 #include "myranks/db/setup_database.sp"
+#include "myranks/db/get_player_score.sp"
+#include "myranks/commands.sp"
 
 public void OnPluginStart()
 {
@@ -59,38 +61,3 @@ public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
     DB_CreateTables();
 }
 
-void RegisterCommands() {
-    RegConsoleCmd("sm_score", Command_Score, "Shows your score");
-}
-
-public Action Command_Score(int client, int args)
-{
-    int steamID = GetSteamAccountID(client);
-    char query[1024];
-
-    DataPack data = new DataPack();
-    data.WriteCell(GetClientUserId(client));
-
-    FormatEx(query, sizeof(query), player_get_score, steamID);
-
-    Transaction txn = SQL_CreateTransaction();
-    txn.AddQuery(query);
-    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_GetPlayerScore, DB_TxnFailure_Generic, data, _);
-
-    return Plugin_Handled;
-}
-
-public void DB_TxnSuccess_GetPlayerScore(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
-{
-    data.Reset();
-    int client = GetClientOfUserId(data.ReadCell());
-    int score;
-    delete data;
-
-    if (SQL_FetchRow(results[0]))
-    {
-        score = SQL_FetchInt(results[0], 0);
-    }
-
-    PrintToChat(client, "Your score is: %d", score);
-}
