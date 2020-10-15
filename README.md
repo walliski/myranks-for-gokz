@@ -47,3 +47,5 @@ What else could be done for this, to make it less of a POC, and more like a real
 * !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
 * Move things into separate files, in some nice way
 * Create a "refresh top100" stored procedure + command or similar?
+* !ranktop command to see players with highest rank
+* Update score on completed map, and print "gain"
