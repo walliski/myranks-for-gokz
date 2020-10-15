@@ -16,7 +16,7 @@ get extra points from challenges, you will not get extra points from LJs, or ext
 
 ## Features
 
-* Shitty code!
+* Shitty code (although a bit cleaned up...)!
 * Automatic calculation of score when you join!
 * Difficult plugin updates!
 * !score command that tells you your score, but not your rank!
@@ -45,7 +45,6 @@ What else could be done for this, to make it less of a POC, and more like a real
     * Show ranks on scoreboard
     * !ranks command that shows all the ranks and points needed?
 * !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
-* Move things into separate files, in some nice way
 * Create a "refresh top100" stored procedure + command or similar?
 * !ranktop command to see players with highest rank
 * Update score on completed map, and print "gain"
