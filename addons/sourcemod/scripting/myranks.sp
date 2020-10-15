@@ -8,7 +8,7 @@
 
 public Plugin myinfo =
 {
-    name = "MyRank for GOKZ",
+    name = "MyRanks for GOKZ",
     author = "Walliski",
     description = "KZTimer-isch ranks for GOKZ on MySQL DB",
     version = "0.0.1",
