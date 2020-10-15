@@ -27,6 +27,8 @@ DatabaseType g_DBType = DatabaseType_None;
 
 public void OnPluginStart()
 {
+    LoadTranslations("myranks.phrases");
+
     RegisterCommands();
 }
 

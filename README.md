@@ -37,8 +37,6 @@ Then watch the world burn, because this is not tested with anything else than a 
 
 What else could be done for this, to make it less of a POC, and more like a real thing? In no particular order:
 
-* Translation support
-* Use GOKZ "prefix" for messages (+ colored message)
 * "Named" ranks
     * Define ranks in config (as % of max points?)
     * Show ranks in chat

@@ -25,5 +25,5 @@ public void DB_TxnSuccess_GetPlayerScore(Handle db, DataPack data, int numQuerie
         score = SQL_FetchInt(results[0], 0);
     }
 
-    PrintToChat(client, "Your score is: %d", score);
+    GOKZ_PrintToChat(client, true, "%t", "Your Score Is", score);
 }

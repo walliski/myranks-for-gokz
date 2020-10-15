@@ -1,0 +1,12 @@
+"Phrases"
+{
+	"Please Wait Before Using Command"
+	{
+		"en"		"{grey}Please wait before using that command again."
+	}
+	"Your Score Is"
+	{
+		"#format"	"{1:d}"
+		"en"		"Your score is {bluegrey}{1}{default}!"
+	}
+}
