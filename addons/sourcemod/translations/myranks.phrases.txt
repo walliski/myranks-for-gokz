@@ -12,7 +12,7 @@
 	"Player Finished Map"
 	{
 		// Bill gained 25 points. Total 1032, rank 10/123.
-		"#format"	"{1:N},{2:d},{3:d},{4:d},{5:d}"
-		"en"		"{lime}{1} {grey}gained {blue}{2} {grey}points. Total {blue}{3}{grey}, rank {purple}{4}{grey}/{purple}{5}{grey}."
+		"#format"	"{1:N},{2:d},{3:d},{4:d},{5:d},{6:s}"
+		"en"		"{lime}{1} {grey}gained {blue}{2} {grey}points. Total {blue}{3}{grey}, rank {purple}{4}{grey}/{purple}{5} {grey}[{purple}{6}{grey}]"
 	}
 }

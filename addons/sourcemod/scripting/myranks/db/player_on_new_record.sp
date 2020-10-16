@@ -27,6 +27,7 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
 {
     data.Reset();
     int client = GetClientOfUserId(data.ReadCell());
+    int mode = GOKZ_GetDefaultMode();
     int score;
     int rank;
     int lowestRank;
@@ -57,5 +58,5 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
         gainedScore = 0;
     }
 
-    GOKZ_PrintToChat(client, true, "%t", "Player Finished Map", client, gainedScore, score, rank, lowestRank);
+    GOKZ_PrintToChat(client, true, "%t", "Player Finished Map", client, gainedScore, score, rank, lowestRank, gC_ModeNamesShort[mode]);
 }
