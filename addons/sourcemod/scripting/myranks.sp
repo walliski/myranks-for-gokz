@@ -17,12 +17,15 @@ public Plugin myinfo =
 
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
+int gI_Score[MAXPLAYERS + 1];
+int gI_OldScore[MAXPLAYERS + 1];
 
 #include "myranks/db/sql.sp"
 #include "myranks/db/helpers.sp"
 #include "myranks/db/setup_client.sp"
 #include "myranks/db/setup_database.sp"
 #include "myranks/db/get_player_score.sp"
+#include "myranks/db/player_on_new_record.sp"
 #include "myranks/commands.sp"
 
 public void OnPluginStart()
@@ -61,5 +64,34 @@ public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
     }
 
     DB_CreateTables();
+}
+
+public void GOKZ_LR_OnTimeProcessed(
+    int client,
+    int steamID,
+    int mapID,
+    int course,
+    int mode,
+    int style,
+    float runTime,
+    int teleportsUsed,
+    bool firstTime,
+    float pbDiff,
+    int rank,
+    int maxRank,
+    bool firstTimePro,
+    float pbDiffPro,
+    int rankPro,
+    int maxRankPro
+)
+{
+    if (course != 0 || mode != GOKZ_GetDefaultMode()) {
+        return;
+    }
+
+    if (pbDiff < 0 || pbDiffPro < 0) // Negative diffs means new best time!
+    {
+        DB_OnNewRecord(client, steamID);
+    }
 }
 
