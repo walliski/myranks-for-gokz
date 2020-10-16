@@ -46,3 +46,10 @@ What else could be done for this, to make it less of a POC, and more like a real
 * !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
 * Create a "refresh top100" stored procedure + command or similar?
 * !ranktop command to see players with highest rank
+* Add support for multiple gamemodes
+    * For example columns in the DB for skz, kzt and vnl, or add a "mode" thingy also...
+    * Why? Because someone might have different gamemodes or different modes enabled on different servers in their
+      community, which would mess up the current ranks.
+    * Not sure if it would be based on the servers default rank though, or the players own... How can we prevent extra
+      loading if people are jumping between modes quickly? Calculate rank on join, and then only on finished map, not
+      on mode switch?
