@@ -86,6 +86,7 @@ public void GOKZ_LR_OnTimeProcessed(
 )
 {
     if (course != 0 || mode != GOKZ_GetDefaultMode()) {
+        // TODO: Tell players they need to play default mode/course 0 to gain rank?
         return;
     }
 
