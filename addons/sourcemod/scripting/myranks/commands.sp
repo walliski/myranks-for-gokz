@@ -19,6 +19,17 @@ public Action Command_Rank(int client, int args)
     return Plugin_Handled;
 }
 
+public Action CommandTop(int client, int args)
+{
+    if (IsSpammingCommands(client))
+    {
+        return Plugin_Handled;
+    }
+
+    DisplayPlayerTopModeMenu(client);
+    return Plugin_Handled;
+}
+
 // =====[ PRIVATE ]=====
 // Spamming check stolen from GOKZ plugin:
 // https://bitbucket.org/kztimerglobalteam/gokz/src/master/addons/sourcemod/scripting/gokz-localranks/commands.sp
