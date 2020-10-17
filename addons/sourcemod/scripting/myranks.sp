@@ -17,8 +17,8 @@ public Plugin myinfo =
 
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
-int gI_Score[MAXPLAYERS + 1];
-int gI_OldScore[MAXPLAYERS + 1];
+int gI_Score[MODE_COUNT][MAXPLAYERS + 1];
+int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
 
 #include "myranks/db/sql.sp"
 #include "myranks/db/helpers.sp"

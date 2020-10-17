@@ -7,7 +7,6 @@ void DB_SetupClient(int client)
 
     char query[1024];
     int steamID = GetSteamAccountID(client);
-    int mode = GOKZ_GetDefaultMode();
 
     DataPack data = new DataPack();
     data.WriteCell(GetClientUserId(client));
@@ -15,14 +14,18 @@ void DB_SetupClient(int client)
 
     Transaction txn = SQL_CreateTransaction();
 
-    FormatEx(query, sizeof(query), player_insert, steamID);
-    txn.AddQuery(query);
+    // For each of the GOKZ modes:
+    for (int i = 0; i < MODE_COUNT; i++)
+    {
+        FormatEx(query, sizeof(query), player_insert, steamID, i);
+        txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), trigger_score_update, steamID, mode);
-    txn.AddQuery(query);
+        FormatEx(query, sizeof(query), trigger_score_update, steamID, i);
+        txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_score, steamID);
-    txn.AddQuery(query);
+        FormatEx(query, sizeof(query), player_get_score, steamID, i);
+        txn.AddQuery(query);
+    }
 
     SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_SetupClient, DB_TxnFailure_Generic, data, DBPrio_High);
 }
@@ -31,13 +34,15 @@ public void DB_TxnSuccess_SetupClient(Handle db, DataPack data, int numQueries, 
 {
     data.Reset();
     int client = GetClientOfUserId(data.ReadCell());
-    int score;
     delete data;
 
-    if (SQL_FetchRow(results[2]))
+    // For each of the GOKZ modes:
+    for (int i = 0; i < MODE_COUNT; i++)
     {
-        score = SQL_FetchInt(results[2], 0);
+        int queryIndex = i * 3 + 2;
+        if (SQL_FetchRow(results[queryIndex]))
+        {
+            gI_Score[i][client] = SQL_FetchInt(results[queryIndex], 0);
+        }
     }
-
-    gI_Score[client] = score;
 }

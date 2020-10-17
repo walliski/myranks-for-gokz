@@ -4,20 +4,20 @@ void DB_OnNewRecord(int client, int steamID) {
     DataPack data = new DataPack();
     data.WriteCell(GetClientUserId(client));
 
-    gI_OldScore[client] = gI_Score[client];
+    gI_OldScore[mode][client] = gI_Score[mode][client];
 
     Transaction txn = SQL_CreateTransaction();
 
     FormatEx(query, sizeof(query), trigger_score_update, steamID, mode);
     txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_score, steamID);
+    FormatEx(query, sizeof(query), player_get_score, steamID, mode);
     txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_rank, steamID);
+    FormatEx(query, sizeof(query), player_get_rank, steamID, mode);
     txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_lowest_rank, steamID);
+    FormatEx(query, sizeof(query), player_get_lowest_rank, steamID, mode);
     txn.AddQuery(query);
 
     SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_OnNewRecord, DB_TxnFailure_Generic, data, DBPrio_Low);
@@ -49,9 +49,9 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
         lowestRank = SQL_FetchInt(results[3], 0);
     }
 
-    gI_Score[client] = score;
+    gI_Score[mode][client] = score;
 
-    gainedScore = gI_Score[client] - gI_OldScore[client];
+    gainedScore = gI_Score[mode][client] - gI_OldScore[mode][client];
 
     // If someone would happen to steal a rank while this is running update?
     if (gainedScore < 0) {

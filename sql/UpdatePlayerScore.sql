@@ -44,7 +44,7 @@ BEGIN
 
     CLOSE maplist;
 
-    UPDATE Myrank SET Score=Score, LastUpdate=CURRENT_TIMESTAMP WHERE SteamID32 = p_SteamID32;
+    UPDATE Myrank SET Score=Score, LastUpdate=CURRENT_TIMESTAMP WHERE SteamID32 = p_SteamID32 AND Mode = p_Mode;
 END;
 //
 

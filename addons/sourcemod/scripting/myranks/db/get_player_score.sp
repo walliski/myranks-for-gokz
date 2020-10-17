@@ -1,12 +1,13 @@
 public void DB_GetPlayerScore(int client)
 {
     int steamID = GetSteamAccountID(client);
+    int mode = GOKZ_GetDefaultMode();
     char query[1024];
 
     DataPack data = new DataPack();
     data.WriteCell(GetClientUserId(client));
 
-    FormatEx(query, sizeof(query), player_get_score, steamID);
+    FormatEx(query, sizeof(query), player_get_score, steamID, mode);
 
     Transaction txn = SQL_CreateTransaction();
     txn.AddQuery(query);
