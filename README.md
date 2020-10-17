@@ -43,7 +43,9 @@ What else could be done for this, to make it less of a POC, and more like a real
     * Show ranks in chat
     * Show ranks on scoreboard
     * !ranks command that shows all the ranks and points needed?
-* !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
+* !rank improvements
+  * Enable targeting of player
+  * Open menu that shows all gamemodes?
 * Create a "refresh top100" stored procedure + command or similar?
 * !ranktop command to see players with highest rank
 * Foreign keys with delete cascade for the Myrank table?

@@ -1,10 +1,10 @@
 static float lastCommandTime[MAXPLAYERS + 1];
 
 void RegisterCommands() {
-    RegConsoleCmd("sm_score", Command_Score, "Shows your score");
+    RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your rank for your current gamemode");
 }
 
-public Action Command_Score(int client, int args)
+public Action Command_Rank(int client, int args)
 {
     if (IsSpammingCommands(client))
     {
@@ -12,11 +12,12 @@ public Action Command_Score(int client, int args)
     }
 
     int mode = GOKZ_GetCoreOption(client, Option_Mode);
-    DB_GetPlayerScore(client, mode);
+    int steamID = GetSteamAccountID(client);
+
+    DB_GetPlayerRank(client, steamID, mode);
 
     return Plugin_Handled;
 }
-
 
 // =====[ PRIVATE ]=====
 // Spamming check stolen from GOKZ plugin:
