@@ -1,11 +1,11 @@
-public void DB_GetPlayerScore(int client)
+public void DB_GetPlayerScore(int client, int mode)
 {
     int steamID = GetSteamAccountID(client);
-    int mode = GOKZ_GetDefaultMode();
     char query[1024];
 
     DataPack data = new DataPack();
     data.WriteCell(GetClientUserId(client));
+    data.WriteCell(mode);
 
     FormatEx(query, sizeof(query), player_get_score, steamID, mode);
 
@@ -18,6 +18,7 @@ public void DB_TxnSuccess_GetPlayerScore(Handle db, DataPack data, int numQuerie
 {
     data.Reset();
     int client = GetClientOfUserId(data.ReadCell());
+    int mode = data.ReadCell();
     int score;
     delete data;
 
@@ -26,5 +27,5 @@ public void DB_TxnSuccess_GetPlayerScore(Handle db, DataPack data, int numQuerie
         score = SQL_FetchInt(results[0], 0);
     }
 
-    GOKZ_PrintToChat(client, true, "%t", "Your Score Is", score);
+    GOKZ_PrintToChat(client, true, "%t", "Your Score Is", score, gC_ModeNamesShort[mode]);
 }

@@ -11,7 +11,8 @@ public Action Command_Score(int client, int args)
         return Plugin_Handled;
     }
 
-    DB_GetPlayerScore(client);
+    int mode = GOKZ_GetCoreOption(client, Option_Mode);
+    DB_GetPlayerScore(client, mode);
 
     return Plugin_Handled;
 }

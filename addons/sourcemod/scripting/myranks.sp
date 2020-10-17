@@ -85,14 +85,13 @@ public void GOKZ_LR_OnTimeProcessed(
     int maxRankPro
 )
 {
-    if (course != 0 || mode != GOKZ_GetDefaultMode()) {
-        // TODO: Tell players they need to play default mode/course 0 to gain rank?
+    if (course != 0) {
         return;
     }
 
     if (pbDiff < 0 || pbDiffPro < 0) // Negative diffs means new best time!
     {
-        DB_OnNewRecord(client, steamID);
+        DB_OnNewRecord(client, steamID, mode);
     }
 }
 

@@ -6,8 +6,8 @@
 	}
 	"Your Score Is"
 	{
-		"#format"	"{1:d}"
-		"en"		"Your score is {bluegrey}{1}{default}!"
+		"#format"	"{1:d},{2:s}"
+		"en"		"{grey}Your score is {bluegrey}{1} {grey}[{purple}{2}{grey}]"
 	}
 	"Player Finished Map"
 	{

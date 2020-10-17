@@ -46,7 +46,5 @@ What else could be done for this, to make it less of a POC, and more like a real
 * !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
 * Create a "refresh top100" stored procedure + command or similar?
 * !ranktop command to see players with highest rank
-* Add support for players current mode, instead of using servers mode?
-* Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching mode after map completion.
 * Foreign keys with delete cascade for the Myrank table?
 * Add a small bonus for completing a map first time, like 25 points TP, 50 PRO, so that even the shittiest of times get something?

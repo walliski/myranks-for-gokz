@@ -1,8 +1,8 @@
-void DB_OnNewRecord(int client, int steamID) {
+void DB_OnNewRecord(int client, int steamID, int mode) {
     char query[1024];
-    int mode = GOKZ_GetDefaultMode();
     DataPack data = new DataPack();
     data.WriteCell(GetClientUserId(client));
+    data.WriteCell(mode);
 
     gI_OldScore[mode][client] = gI_Score[mode][client];
 
@@ -27,7 +27,7 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
 {
     data.Reset();
     int client = GetClientOfUserId(data.ReadCell());
-    int mode = GOKZ_GetDefaultMode();
+    int mode = data.ReadCell();
     int score;
     int rank;
     int lowestRank;
