@@ -10,12 +10,11 @@ CREATE OR REPLACE PROCEDURE UpdatePlayerScore(
 BEGIN
     DECLARE Done INT DEFAULT FALSE;
     DECLARE Map INT(10);
-    DECLARE Teleports SMALLINT(5);
     DECLARE Score INT DEFAULT 0;
 
     DECLARE maplist CURSOR
     FOR
-        SELECT t.MapCourseID, t.Teleports
+        SELECT DISTINCT t.MapCourseID
         FROM
             (SELECT mc.MapCourseID
             FROM Maps m
@@ -32,13 +31,13 @@ BEGIN
 
     open maplist;
     read_loop: LOOP
-        FETCH maplist INTO Map, Teleports;
+        FETCH maplist INTO Map;
 
         IF Done THEN
             LEAVE read_loop;
         END IF;
 
-        CALL GetMapScore(p_SteamID32, Map, p_Mode, Teleports, @score);
+        CALL GetMapScore(p_SteamID32, Map, p_Mode, @score);
         SET Score = Score + @score;
     END LOOP;
 
@@ -51,5 +50,3 @@ END;
 DELIMITER ;
 
 -- CALL UpdatePlayerScore(20935526, 2);
-
-
