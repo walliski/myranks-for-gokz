@@ -14,10 +14,10 @@ void DB_OnNewRecord(int client, int steamID) {
     FormatEx(query, sizeof(query), player_get_score, steamID, mode);
     txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_rank, steamID, mode);
+    FormatEx(query, sizeof(query), player_get_rank, mode, mode, steamID);
     txn.AddQuery(query);
 
-    FormatEx(query, sizeof(query), player_get_lowest_rank, steamID, mode);
+    FormatEx(query, sizeof(query), player_get_lowest_rank, mode);
     txn.AddQuery(query);
 
     SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_OnNewRecord, DB_TxnFailure_Generic, data, DBPrio_Low);

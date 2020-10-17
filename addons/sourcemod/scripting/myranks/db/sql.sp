@@ -20,7 +20,7 @@ FROM Myrank \
         (SELECT Score \
         FROM Myrank \
         INNER JOIN Players ON Players.SteamID32=Myrank.SteamID32 \
-        WHERE Players.Cheater=0 AND Myrank.SteamID32=%d) \
+        WHERE Players.Cheater=0 AND Myrank.Mode=%d AND Myrank.SteamID32=%d) \
 ";
 
 char player_get_lowest_rank[] = "\
