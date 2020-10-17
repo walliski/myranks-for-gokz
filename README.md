@@ -54,3 +54,4 @@ What else could be done for this, to make it less of a POC, and more like a real
       loading if people are jumping between modes quickly? Calculate rank on join, and then only on finished map, not
       on mode switch?
 * Foreign keys with delete cascade for the Myrank table?
+* Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching more after map completion.
