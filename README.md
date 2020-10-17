@@ -46,13 +46,7 @@ What else could be done for this, to make it less of a POC, and more like a real
 * !rank command that shows current score + ranking position (For a given player?) (And required for next rank?)
 * Create a "refresh top100" stored procedure + command or similar?
 * !ranktop command to see players with highest rank
-* Add support for multiple gamemodes
-    * For example columns in the DB for skz, kzt and vnl, or add a "mode" thingy also...
-    * Why? Because someone might have different gamemodes or different modes enabled on different servers in their
-      community, which would mess up the current ranks.
-    * Not sure if it would be based on the servers default rank though, or the players own... How can we prevent extra
-      loading if people are jumping between modes quickly? Calculate rank on join, and then only on finished map, not
-      on mode switch?
+* Add support for players current mode, instead of using servers mode?
+* Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching mode after map completion.
 * Foreign keys with delete cascade for the Myrank table?
-* Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching more after map completion.
 * BUG: UpdatePlayerScore maplist will grab duplicate maps for times of a user, instead of only the quickest time..
