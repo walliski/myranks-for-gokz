@@ -89,7 +89,7 @@ public void GOKZ_LR_OnTimeProcessed(
         return;
     }
 
-    if (pbDiff < 0 || pbDiffPro < 0) // Negative diffs means new best time!
+    if (pbDiff < 0 || pbDiffPro < 0 || firstTime || firstTimePro) // Negative diffs means new best time!
     {
         DB_OnNewRecord(client, steamID, mode);
     }
