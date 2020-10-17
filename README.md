@@ -53,3 +53,4 @@ What else could be done for this, to make it less of a POC, and more like a real
     * Not sure if it would be based on the servers default rank though, or the players own... How can we prevent extra
       loading if people are jumping between modes quickly? Calculate rank on join, and then only on finished map, not
       on mode switch?
+* Foreign keys with delete cascade for the Myrank table?
