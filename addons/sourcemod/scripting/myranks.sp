@@ -26,6 +26,7 @@ int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
 #include "myranks/db/setup_database.sp"
 #include "myranks/db/get_player_rank.sp"
 #include "myranks/db/player_on_new_record.sp"
+#include "myranks/db/player_ranktopmenu.sp"
 #include "myranks/commands.sp"
 
 public void OnPluginStart()

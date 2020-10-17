@@ -2,6 +2,7 @@ static float lastCommandTime[MAXPLAYERS + 1];
 
 void RegisterCommands() {
     RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your rank for your current gamemode");
+    RegConsoleCmd("sm_ranktop", Command_RankTop, "[KZ] Opens menu to view rank top");
 }
 
 public Action Command_Rank(int client, int args)
@@ -19,14 +20,14 @@ public Action Command_Rank(int client, int args)
     return Plugin_Handled;
 }
 
-public Action CommandTop(int client, int args)
+public Action Command_RankTop(int client, int args)
 {
     if (IsSpammingCommands(client))
     {
         return Plugin_Handled;
     }
 
-    DisplayPlayerTopModeMenu(client);
+    DisplayRankTopModeMenu(client);
     return Plugin_Handled;
 }
 
