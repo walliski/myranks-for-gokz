@@ -45,3 +45,5 @@ FROM Myrank \
 ";
 
 char trigger_score_update[] = "CALL UpdatePlayerScore(%d, %d)";
+
+char trigger_recalculate_top[] = "CALL UpdateTopScore(%d, %d)";

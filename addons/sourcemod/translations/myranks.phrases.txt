@@ -21,6 +21,14 @@
 		"#format"	"{1:N},{2:d},{3:d},{4:d},{5:d},{6:s}"
 		"en"		"{lime}{1} {grey}gained {blue}{2} {grey}points. Total {blue}{3}{grey}, rank {purple}{4}{grey}/{purple}{5} {grey}[{purple}{6}{grey}]"
 	}
+	"Recalculation In Progress"
+	{
+		"en"		"{grey}Recalculation already in progress!"
+	}
+	"Recalculation Complete"
+	{
+		"en"		"{grey}Rank recalculation complete!"
+	}
 
 	// Menu
 

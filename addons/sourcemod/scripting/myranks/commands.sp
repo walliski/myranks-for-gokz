@@ -3,6 +3,8 @@ static float lastCommandTime[MAXPLAYERS + 1];
 void RegisterCommands() {
     RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your rank for your current gamemode");
     RegConsoleCmd("sm_ranktop", Command_RankTop, "[KZ] Opens menu to view rank top");
+
+    RegAdminCmd("sm_recalculate_top", Command_Recalculate_Top, ADMFLAG_ROOT, "[KZ] Recalculates player profiles in TOP list");
 }
 
 public Action Command_Rank(int client, int args)
@@ -28,6 +30,19 @@ public Action Command_RankTop(int client, int args)
     }
 
     DisplayRankTopModeMenu(client);
+    return Plugin_Handled;
+}
+
+public Action Command_Recalculate_Top(int client, int args)
+{
+    if (gB_RecalculationInProgess)
+    {
+        GOKZ_PrintToChat(client, true, "%t", "Recalculation In Progress");
+        return Plugin_Handled;
+    }
+
+    DB_RecalculateTop(client);
+
     return Plugin_Handled;
 }
 

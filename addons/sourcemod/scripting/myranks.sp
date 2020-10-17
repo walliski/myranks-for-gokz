@@ -19,6 +19,7 @@ Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
 int gI_Score[MODE_COUNT][MAXPLAYERS + 1];
 int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
+bool gB_RecalculationInProgess = false;
 
 #include "myranks/db/sql.sp"
 #include "myranks/db/helpers.sp"
@@ -27,6 +28,7 @@ int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
 #include "myranks/db/get_player_rank.sp"
 #include "myranks/db/player_on_new_record.sp"
 #include "myranks/db/player_ranktopmenu.sp"
+#include "myranks/db/recalculate_top.sp"
 #include "myranks/commands.sp"
 
 public void OnPluginStart()
