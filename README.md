@@ -47,6 +47,4 @@ What else could be done for this, to make it less of a POC, and more like a real
   * Enable targeting of player
   * Open menu that shows all gamemodes?
 * Create a "refresh top100" stored procedure + command or similar?
-* !ranktop command to see players with highest rank
 * Foreign keys with delete cascade for the Myrank table?
-* Add a small bonus for completing a map first time, like 25 points TP, 50 PRO, so that even the shittiest of times get something?
