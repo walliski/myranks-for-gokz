@@ -49,3 +49,4 @@ What else could be done for this, to make it less of a POC, and more like a real
 * Add support for players current mode, instead of using servers mode?
 * Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching mode after map completion.
 * Foreign keys with delete cascade for the Myrank table?
+* Add a small bonus for completing a map first time, like 25 points TP, 50 PRO, so that even the shittiest of times get something?
