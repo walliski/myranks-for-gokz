@@ -55,3 +55,4 @@ What else could be done for this, to make it less of a POC, and more like a real
       on mode switch?
 * Foreign keys with delete cascade for the Myrank table?
 * Pack the mode for txn callbacks into data, instead of reparsing it, to avoid issues on switching more after map completion.
+* BUG: UpdatePlayerScore maplist will grab duplicate maps for times of a user, instead of only the quickest time..
