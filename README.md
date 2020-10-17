@@ -46,5 +46,4 @@ What else could be done for this, to make it less of a POC, and more like a real
 * !rank improvements
   * Enable targeting of player
   * Open menu that shows all gamemodes?
-* Create a "refresh top100" stored procedure + command or similar?
 * Foreign keys with delete cascade for the Myrank table?
