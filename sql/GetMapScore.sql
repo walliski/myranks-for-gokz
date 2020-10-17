@@ -62,6 +62,9 @@ BEGIN
 
     -- Its not a given that a player has a PRO time
     IF RankPro > 0 THEN
+        -- Participation award
+        SET Score = Score + 50;
+
         SET PercentPro = 1.0 + (1.0/CAST(TotalCountPro AS DECIMAL)) - (CAST(RankPro AS DECIMAL) / CAST(TotalCountPro AS DECIMAL));
         SET Score = Score + CEILING(200.0 * PercentPro);
 
@@ -88,7 +91,10 @@ BEGIN
             WHEN 20 THEN SET Score = Score + 50;
             ELSE SET Score = Score;
         END CASE;
-    END IF;
+    END IF; -- End PRO block
+
+    -- Participation award
+    SET Score = Score + 25;
 
     -- But he always has a TP time if he has finished
     SET Score = Score + CEILING(100.0 * Percent);
