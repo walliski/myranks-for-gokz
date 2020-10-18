@@ -14,10 +14,10 @@ void DB_OpenRankTop(int client, int mode)
     FormatEx(query, sizeof(query), player_get_top, mode, LR_PLAYER_TOP_CUTOFF); //TODO: Some other cutoff?
     txn.AddQuery(query);
 
-    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_OpenPlayerTop, DB_TxnFailure_Generic, data, DBPrio_Low);
+    SQL_ExecuteTransaction(gH_DB, txn, DB_TxnSuccess_OpenRankTop, DB_TxnFailure_Generic, data, DBPrio_Low);
 }
 
-public void DB_TxnSuccess_OpenPlayerTop(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
+public void DB_TxnSuccess_OpenRankTop(Handle db, DataPack data, int numQueries, Handle[] results, any[] queryData)
 {
     data.Reset();
     int client = GetClientOfUserId(data.ReadCell());
