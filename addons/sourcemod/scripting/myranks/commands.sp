@@ -14,10 +14,9 @@ public Action Command_Rank(int client, int args)
         return Plugin_Handled;
     }
 
-    int mode = GOKZ_GetCoreOption(client, Option_Mode);
     int steamID = GetSteamAccountID(client);
 
-    DB_GetPlayerRank(client, steamID, mode);
+    DB_OpenPlayerRank(client, steamID);
 
     return Plugin_Handled;
 }

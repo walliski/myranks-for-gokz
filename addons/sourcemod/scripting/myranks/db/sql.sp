@@ -34,6 +34,8 @@ FROM Myrank \
 
 char player_get_score[] = "SELECT Score FROM Myrank WHERE SteamID32=%d AND Mode=%d";
 
+char player_get_name[] = "SELECT Alias FROM Players WHERE SteamID32=%d";
+
 char player_get_top[] = "\
 SELECT Myrank.SteamID32, Players.Alias, Score \
 FROM Myrank \
