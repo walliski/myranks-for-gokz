@@ -42,9 +42,11 @@ version in Docker...
 What else could be done for this, to make it less of a POC, and more like a real thing? In no particular order:
 
 * "Named" ranks
-    * Define ranks in config (as % of max points?)
     * Show ranks in chat
     * Show ranks on scoreboard
-    * !ranks command that shows all the ranks and points needed?
+    * !ranks command as menu instead?
+    * Colors for the ranks, through config or something?
+    * Set new Max score at some point, like when player finishes map?
+    * Fill in the config for ranks
 * Enable DB search for player !rank. :thinking:
 * Foreign keys with delete cascade for the Myrank table?
