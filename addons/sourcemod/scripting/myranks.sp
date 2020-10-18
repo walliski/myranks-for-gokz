@@ -15,20 +15,31 @@ public Plugin myinfo =
     url = ""
 };
 
+#define SG_NAME_MAXLENGTH 24
+#define SG_PERCENTAGE_MAXLENGTH 8
+#define SG_MAXCOUNT 32
+
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
 int gI_Score[MODE_COUNT][MAXPLAYERS + 1];
 int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
+int gI_MaxScore[MODE_COUNT];
 bool gB_RecalculationInProgess = false;
+
+char gS_SkillGroupName[SG_MAXCOUNT][SG_NAME_MAXLENGTH];
+float gF_SkillGroupPercentage[SG_MAXCOUNT];
+int gI_SkillGroupCount = 0;
 
 #include "myranks/db/sql.sp"
 #include "myranks/db/helpers.sp"
 #include "myranks/db/setup_client.sp"
 #include "myranks/db/setup_database.sp"
+#include "myranks/db/setup_maxscore.sp"
 #include "myranks/db/player_on_new_record.sp"
 #include "myranks/db/player_ranktopmenu.sp"
 #include "myranks/db/player_rankmenu.sp"
 #include "myranks/db/recalculate_top.sp"
+#include "myranks/skillgroups.sp"
 #include "myranks/commands.sp"
 
 public void OnPluginStart()
@@ -55,6 +66,11 @@ public void OnAllPluginsLoaded()
 public void OnClientAuthorized(int client, const char[] auth)
 {
     DB_SetupClient(client);
+}
+
+public void OnConfigsExecuted()
+{
+    DB_SetupMaxScore();
 }
 
 public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
@@ -97,4 +113,3 @@ public void GOKZ_LR_OnTimeProcessed(
         DB_OnNewRecord(client, steamID, mode);
     }
 }
-

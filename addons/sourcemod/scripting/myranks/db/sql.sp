@@ -46,6 +46,8 @@ FROM Myrank \
     LIMIT %d \
 ";
 
+char mode_get_max_score[] = "SELECT Score FROM Myrank WHERE Mode=%d ORDER BY Score DESC LIMIT 1";
+
 char trigger_score_update[] = "CALL UpdatePlayerScore(%d, %d)";
 
 char trigger_recalculate_top[] = "CALL UpdateTopScore(%d, %d)";

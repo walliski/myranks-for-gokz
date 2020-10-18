@@ -2,6 +2,7 @@ static float lastCommandTime[MAXPLAYERS + 1];
 
 void RegisterCommands() {
     RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your, or another players, ranks. Usage: sm_rank <player>");
+    RegConsoleCmd("sm_ranks", Command_Ranks, "[KZ] Show all ranks for your current mode");
     RegConsoleCmd("sm_ranktop", Command_RankTop, "[KZ] Opens menu to view rank top");
 
     RegAdminCmd("sm_recalculate_top", Command_Recalculate_Top, ADMFLAG_ROOT, "[KZ] Recalculates player profiles in TOP list");
@@ -31,6 +32,24 @@ public Action Command_Rank(int client, int args)
             DB_OpenPlayerRank(client, steamID);
         }
     }
+
+    return Plugin_Handled;
+}
+
+public Action Command_Ranks(int client, int args)
+{
+    char rankBuffer[256];
+    char buffer[256];
+    int mode = GOKZ_GetCoreOption(client, Option_Mode);
+
+    Format(buffer, sizeof(buffer), "%s: ", gC_ModeNames[mode]);
+
+    for (int i = 0; i < gI_SkillGroupCount; i++) {
+        Format(rankBuffer, sizeof(rankBuffer), "%s (%d) ", gS_SkillGroupName[i], RoundFloat(gI_MaxScore[mode] * gF_SkillGroupPercentage[i]));
+        StrCat(buffer, sizeof(buffer), rankBuffer);
+    }
+
+    GOKZ_PrintToChat(client, true, buffer);
 
     return Plugin_Handled;
 }
