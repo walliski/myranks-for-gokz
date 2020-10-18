@@ -1,7 +1,7 @@
 static float lastCommandTime[MAXPLAYERS + 1];
 
 void RegisterCommands() {
-    RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your rank for your current gamemode");
+    RegConsoleCmd("sm_rank", Command_Rank, "[KZ] Gets your, or another players, ranks. Usage: sm_rank <player>");
     RegConsoleCmd("sm_ranktop", Command_RankTop, "[KZ] Opens menu to view rank top");
 
     RegAdminCmd("sm_recalculate_top", Command_Recalculate_Top, ADMFLAG_ROOT, "[KZ] Recalculates player profiles in TOP list");
@@ -14,9 +14,23 @@ public Action Command_Rank(int client, int args)
         return Plugin_Handled;
     }
 
-    int steamID = GetSteamAccountID(client);
+    if (args < 1) // If not arguments, show own rank
+    {
+        int steamID = GetSteamAccountID(client);
+        DB_OpenPlayerRank(client, steamID);
+    }
+    else // Get the player we want
+    {
+        char specifiedPlayer[MAX_NAME_LENGTH];
+        GetCmdArg(1, specifiedPlayer, sizeof(specifiedPlayer));
 
-    DB_OpenPlayerRank(client, steamID);
+        int target = FindTarget(client, specifiedPlayer, true, false);
+        if (target != -1)
+        {
+            int steamID = GetSteamAccountID(target);
+            DB_OpenPlayerRank(client, steamID);
+        }
+    }
 
     return Plugin_Handled;
 }

@@ -43,6 +43,5 @@ What else could be done for this, to make it less of a POC, and more like a real
     * Show ranks in chat
     * Show ranks on scoreboard
     * !ranks command that shows all the ranks and points needed?
-* !rank improvements
-  * Enable targeting of player
+* Enable DB search for player !rank. :thinking:
 * Foreign keys with delete cascade for the Myrank table?
