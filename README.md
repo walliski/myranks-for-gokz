@@ -1,5 +1,8 @@
 # MyRanks for GOKZ
 
+> Note that this is still very much WIP, and can change fully without warning, whenever, however.
+> There will be a "real" release soon(tm), when things from the TODO list are done, and this has been tested a bit more.
+
 A desperate attempt to get the ranks from KZTimer into GOKZ, to close the feature gap a bit. While it tries to copy the
 same method as KZTimer does, there is one large difference. In KZTimer the plugin does thousands of SQL queries to
 calculate the rank for a player that has finished many maps. This is the main reason why the rank calculation is so
