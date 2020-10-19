@@ -46,7 +46,7 @@ FROM Myrank \
     LIMIT %d \
 ";
 
-char mode_get_max_score[] = "SELECT Score FROM Myrank WHERE Mode=%d ORDER BY Score DESC LIMIT 1";
+char mode_get_max_score[] = "SELECT ROUND(AVG(Score)) FROM (SELECT Score FROM Myrank WHERE Mode=%d ORDER BY Score DESC LIMIT 5) top5;";
 
 char trigger_score_update[] = "CALL UpdatePlayerScore(%d, %d)";
 
