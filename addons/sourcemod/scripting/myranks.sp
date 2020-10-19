@@ -27,6 +27,7 @@ int gI_MaxScore[MODE_COUNT];
 bool gB_RecalculationInProgess = false;
 
 char gS_SkillGroupName[SG_MAXCOUNT][SG_NAME_MAXLENGTH];
+char gS_SkillGroupColor[SG_MAXCOUNT][SG_NAME_MAXLENGTH];
 float gF_SkillGroupPercentage[SG_MAXCOUNT];
 int gI_SkillGroupCount = 0;
 

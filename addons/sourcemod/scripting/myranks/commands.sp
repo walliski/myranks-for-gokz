@@ -42,11 +42,16 @@ public Action Command_Ranks(int client, int args)
     char buffer[256];
     int mode = GOKZ_GetCoreOption(client, Option_Mode);
 
-    Format(buffer, sizeof(buffer), "%s: ", gC_ModeNames[mode]);
+    Format(buffer, sizeof(buffer), "%s: ", gC_ModeNamesShort[mode]);
 
     for (int i = 0; i < gI_SkillGroupCount; i++) {
-        Format(rankBuffer, sizeof(rankBuffer), "%s (%d) ", gS_SkillGroupName[i], RoundFloat(gI_MaxScore[mode] * gF_SkillGroupPercentage[i]));
+        Format(rankBuffer, sizeof(rankBuffer), "%s%s (%d) ", gS_SkillGroupColor[i], gS_SkillGroupName[i], RoundFloat(gI_MaxScore[mode] * gF_SkillGroupPercentage[i]));
         StrCat(buffer, sizeof(buffer), rankBuffer);
+
+        if (i > 0 && i % 8 == 0) {
+            GOKZ_PrintToChat(client, true, buffer);
+            Format(buffer, sizeof(buffer), "%s: ", gC_ModeNamesShort[mode]);
+        }
     }
 
     GOKZ_PrintToChat(client, true, buffer);
