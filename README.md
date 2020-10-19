@@ -45,7 +45,7 @@ selected mode, and the skillgroup for that mode. When using this, do not use `go
 
 1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download this repository.
 2. Run the SQL files in the `sql` folder on your MySQL/MariaDB server in your GOKZ database, to create the stored
-   procedures.
+   procedures. The `.sql` files do not need to go to your game server!
 3. Place the files in their correct folders. Remember translations and config files!
 
 ## Changelog
