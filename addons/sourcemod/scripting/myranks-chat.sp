@@ -5,6 +5,7 @@
 #include <cstrike>
 
 #include <gokz/core>
+#include <myranks>
 
 #include <autoexecconfig>
 #include <sourcemod-colors>
@@ -12,23 +13,18 @@
 #undef REQUIRE_EXTENSIONS
 #undef REQUIRE_PLUGIN
 #include <basecomm>
-#include <updater>
 
 #pragma newdecls required
 #pragma semicolon 1
 
-
-
-public Plugin myinfo = 
+public Plugin myinfo =
 {
-    name = "GOKZ Chat", 
-    author = "DanZay", 
-    description = "Handles client-triggered chat messages", 
-    version = GOKZ_VERSION, 
-    url = "https://bitbucket.org/kztimerglobalteam/gokz"
+    name = "GOKZ Chat (Myranks edition)",
+    author = "DanZay (& Myranks - Walliski)",
+    description = "Handles client-triggered chat messages",
+    version = MYRANK_VERSION,
+    url = "https://github.com/walliski/myranks-for-gokz"
 };
-
-#define UPDATER_URL GOKZ_UPDATER_BASE_URL..."gokz-chat.txt"
 
 bool gB_BaseComm;
 
@@ -41,35 +37,27 @@ ConVar gCV_gokz_connection_messages;
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-    RegPluginLibrary("gokz-chat");
+    RegPluginLibrary("myranks-chat");
     return APLRes_Success;
 }
 
 public void OnPluginStart()
 {
-    LoadTranslations("gokz-chat.phrases");
-    
+    LoadTranslations("myranks-chat.phrases");
+
     CreateConVars();
     HookEvents();
-    
+
     OnPluginStart_BlockRadio();
 }
 
 public void OnAllPluginsLoaded()
 {
-    if (LibraryExists("updater"))
-    {
-        Updater_AddPlugin(UPDATER_URL);
-    }
     gB_BaseComm = LibraryExists("basecomm");
 }
 
 public void OnLibraryAdded(const char[] name)
 {
-    if (StrEqual(name, "updater"))
-    {
-        Updater_AddPlugin(UPDATER_URL);
-    }
     gB_BaseComm = gB_BaseComm || StrEqual(name, "basecomm");
 }
 
@@ -78,6 +66,23 @@ public void OnLibraryRemoved(const char[] name)
     gB_BaseComm = gB_BaseComm && !StrEqual(name, "basecomm");
 }
 
+// From Sourcebans++
+// https://github.com/sbpp/sourcebans-pp/blob/315f08f35dda1c196ec544dd3f0160d148ec569f/game/addons/sourcemod/scripting/sbpp_main.sp
+public void OnConfigsExecuted()
+{
+    char filename[200];
+    BuildPath(Path_SM, filename, sizeof(filename), "plugins/gokz-chat.smx");
+    if (FileExists(filename))
+    {
+        char newfilename[200];
+        BuildPath(Path_SM, newfilename, sizeof(newfilename), "plugins/disabled/gokz-chat.smx");
+        ServerCommand("sm plugins unload gokz-chat");
+        if (FileExists(newfilename))
+            DeleteFile(newfilename);
+        RenameFile(newfilename, filename);
+        LogError("plugins/gokz-chat.smx was unloaded and moved to plugins/disabled/gokz-chat.smx. Do not use both plugins at the same time.");
+    }
+}
 
 
 // =====[ CLIENT EVENTS ]=====
@@ -120,12 +125,12 @@ public Action OnPlayerJoinTeam(Event event, const char[] name, bool dontBroadcas
 
 void CreateConVars()
 {
-    AutoExecConfig_SetFile("gokz-chat", "sourcemod/gokz");
+    AutoExecConfig_SetFile("myranks-chat", "sourcemod/myranks");
     AutoExecConfig_SetCreateFile(true);
-    
+
     gCV_gokz_chat_processing = AutoExecConfig_CreateConVar("gokz_chat_processing", "1", "Whether GOKZ processes player chat messages.", _, true, 0.0, true, 1.0);
     gCV_gokz_connection_messages = AutoExecConfig_CreateConVar("gokz_connection_messages", "1", "Whether GOKZ handles connection and disconnection messages.", _, true, 0.0, true, 1.0);
-    
+
     AutoExecConfig_ExecuteFile();
     AutoExecConfig_CleanFile();
 }
@@ -147,7 +152,7 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
     {
         return;
     }
-    
+
     // Resend messages that may have been a command with capital letters
     if ((message[0] == '!' || message[0] == '/') && IsCharUpper(message[1]))
     {
@@ -156,29 +161,38 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
         FakeClientCommand(client, "say %s", loweredMessage);
         return;
     }
-    
+
     char sanitisedMessage[128];
     strcopy(sanitisedMessage, sizeof(sanitisedMessage), message);
     SanitiseChatInput(sanitisedMessage, sizeof(sanitisedMessage));
-    
+
     char sanitisedName[MAX_NAME_LENGTH];
     GetClientName(client, sanitisedName, sizeof(sanitisedName));
     SanitiseChatInput(sanitisedName, sizeof(sanitisedName));
-    
+
+    int mode = GOKZ_GetCoreOption(client, Option_Mode);
+    int score = Myrank_GetScore(client, mode);
+    int skillGroup = Myrank_GetSkillGroup(score, mode);
+
+    char skillGroupName[MYRANK_SG_NAME_MAXLENGTH];
+    Myrank_GetSkillGroupName(skillGroup, skillGroupName);
+    char skillGroupColor[MYRANK_SG_NAME_MAXLENGTH];
+    Myrank_GetSkillGroupColor(skillGroup, skillGroupColor);
+
     if (TrimString(sanitisedMessage) == 0)
     {
         return;
     }
-    
+
     if (IsSpectating(client))
     {
-        GOKZ_PrintToChatAll(false, "{default}* {lime}%s{default} : %s", sanitisedName, sanitisedMessage);
+        GOKZ_PrintToChatAll(false, "{default}* %s | [%s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
         PrintToConsoleAll("* %s : %s", sanitisedName, sanitisedMessage);
         PrintToServer("* %s : %s", sanitisedName, sanitisedMessage);
     }
     else
     {
-        GOKZ_PrintToChatAll(false, "{lime}%s{default} : %s", sanitisedName, sanitisedMessage);
+        GOKZ_PrintToChatAll(false, "%s | [%s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
         PrintToConsoleAll("%s : %s", sanitisedName, sanitisedMessage);
         PrintToServer("%s : %s", sanitisedName, sanitisedMessage);
     }
@@ -191,7 +205,7 @@ bool UsedBaseChat(int client, const char[] command, const char[] message)
     {
         return false;
     }
-    
+
     if (strcmp(command, "say_team", false) == 0)
     {
         return true;
@@ -200,7 +214,7 @@ bool UsedBaseChat(int client, const char[] command, const char[] message)
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -222,7 +236,7 @@ void PrintConnectMessage(int client)
     {
         return;
     }
-    
+
     GOKZ_PrintToChatAll(false, "%t", "Client Connection Message", client);
 }
 
@@ -232,7 +246,7 @@ void PrintDisconnectMessage(int client, Event event) // Hooked to player_disconn
     {
         return;
     }
-    
+
     char reason[128];
     event.GetString("reason", reason, sizeof(reason));
     GOKZ_PrintToChatAll(false, "%t", "Client Disconnection Message", client, reason);
@@ -242,11 +256,11 @@ void PrintDisconnectMessage(int client, Event event) // Hooked to player_disconn
 
 // =====[ BLOCK RADIO ]=====
 
-static char radioCommands[][] = 
+static char radioCommands[][] =
 {
-    "coverme", "takepoint", "holdpos", "regroup", "followme", "takingfire", "go", 
-    "fallback", "sticktog", "getinpos", "stormfront", "report", "roger", "enemyspot", 
-    "needbackup", "sectorclear", "inposition", "reportingin", "getout", "negative", 
+    "coverme", "takepoint", "holdpos", "regroup", "followme", "takingfire", "go",
+    "fallback", "sticktog", "getinpos", "stormfront", "report", "roger", "enemyspot",
+    "needbackup", "sectorclear", "inposition", "reportingin", "getout", "negative",
     "enemydown", "compliment", "thanks", "cheer", "go_a", "go_b", "sorry", "needrop"
 };
 
@@ -261,4 +275,4 @@ public void OnPluginStart_BlockRadio()
 public Action CommandBlock(int client, const char[] command, int argc)
 {
     return Plugin_Handled;
-} 
+}
