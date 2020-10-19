@@ -42,7 +42,9 @@ public void DB_TxnSuccess_SetupClient(Handle db, DataPack data, int numQueries, 
         int queryIndex = i * 3 + 2;
         if (SQL_FetchRow(results[queryIndex]))
         {
-            gI_Score[i][client] = SQL_FetchInt(results[queryIndex], 0);
+            int score = SQL_FetchInt(results[queryIndex], 0);
+            gI_Score[i][client] = score;
+            Call_OnScoreChange(client, score, i);
         }
     }
 }

@@ -3,6 +3,7 @@ void CreateNatives()
     CreateNative("Myrank_GetSkillGroupColor", Native_GetSkillGroupColor);
     CreateNative("Myrank_GetSkillGroupName", Native_GetSkillGroupName);
     CreateNative("Myrank_GetSkillGroup", Native_GetSkillGroup);
+    CreateNative("Myrank_GetScore", Native_GetScore);
 }
 
 public int Native_GetSkillGroupColor(Handle plugin, int numParams)
@@ -18,4 +19,9 @@ public int Native_GetSkillGroupName(Handle plugin, int numParams)
 public int Native_GetSkillGroup(Handle plugin, int numParams)
 {
     return GetSkillGroup(GetNativeCell(1), GetNativeCell(2));
+}
+
+public int Native_GetScore(Handle plugin, int numParams)
+{
+    return gI_Score[GetNativeCell(2)][GetNativeCell(1)];
 }

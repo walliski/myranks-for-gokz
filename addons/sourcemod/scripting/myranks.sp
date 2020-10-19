@@ -12,8 +12,8 @@ public Plugin myinfo =
     name = "MyRanks for GOKZ",
     author = "Walliski",
     description = "KZTimer-isch ranks for GOKZ on MySQL DB",
-    version = "0.0.1",
-    url = ""
+    version = MYRANK_VERSION,
+    url = "https://github.com/walliski/myranks-for-gokz"
 };
 
 Database gH_DB = null;

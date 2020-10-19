@@ -59,4 +59,6 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
     }
 
     GOKZ_PrintToChatAll(true, "%t", "Player Finished Map", client, gainedScore, score, rank, lowestRank, gC_ModeNamesShort[mode]);
+
+    Call_OnScoreChange(client, score, mode);
 }

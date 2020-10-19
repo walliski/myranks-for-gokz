@@ -4,6 +4,8 @@
 #endif
 #define _myrank_included_
 
+#define MYRANK_VERSION "0.0.1"
+
 #define MYRANK_SG_NAME_MAXLENGTH 24
 #define MYRANK_SG_PERCENTAGE_MAXLENGTH 8
 #define MYRANK_SG_MAXCOUNT 32
@@ -34,6 +36,14 @@ native void Myrank_GetSkillGroupName(int skillGroup, char[] skillGroupName);
 */
 native int Myrank_GetSkillGroup(int score, int mode);
 
+/*
+ * Gets the skillgroup for a certain mode and score
+ *
+ * @param client   The client to get score for
+ * @param mode     The mode for which to get score
+ */
+native int Myrank_GetScore(int client, int mode);
+
 // FORWARDS
 
 /*
@@ -53,4 +63,4 @@ forward void Myrank_OnScoreChange(int client, int newScore, int mode);
  * @param mode        In which mode the score changed
 */
 
-forward void Myrank_OnMaxScoreChange(int newScore, mode);
+forward void Myrank_OnMaxScoreChange(int newScore, int mode);

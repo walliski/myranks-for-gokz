@@ -22,7 +22,9 @@ public void DB_TxnSuccess_SetupMaxScore(Handle db, DataPack data, int numQueries
         int queryIndex = i;
         if (SQL_FetchRow(results[queryIndex]))
         {
-            gI_MaxScore[i] = SQL_FetchInt(results[queryIndex], 0);
+            int score = SQL_FetchInt(results[queryIndex], 0);
+            gI_MaxScore[i] = score;
+            Call_OnMaxScoreChange(score, i);
         }
     }
 
