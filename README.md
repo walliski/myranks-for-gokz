@@ -18,6 +18,11 @@ top 5 players in each mode. This means that it will jump quite a bit in the begi
 is after all a ranking, and not a progression system, so the player that has the most score will always have the best
 rank, be it 100 score or 100 000.
 
+The plugin requires GOKZ Localranks to be in use, and that maps that you want to calculate rank based on should be in
+the `cfg/sourcemod/gokz/gokz-localranks-mappool.cfg` file, and you run `!updatemappool` to mark them as ranked maps.
+Note that this marks them in the DB, so if you have multiple servers on the same DB, they will share the same pool and
+you only have to do this on one server.
+
 ## Plugins & Commands
 
 This plugin consists of three main plugins.
