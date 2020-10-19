@@ -13,6 +13,11 @@ of map completions. In this plugin, the rank is calculated based on map finishes
 from which rank you get on the map itself, with a bonus if you are in the top 20, and a small participation award for
 first time completions.
 
+The skillgroups (TRAINEE, REGULAR, SEMIPRO, etc.) are based on a percentage (set in config) of the average score of the
+top 5 players in each mode. This means that it will jump quite a bit in the beginning, but will smooth out over time. It
+is after all a ranking, and not a progression system, so the player that has the most score will always have the best
+rank, be it 100 score or 100 000.
+
 ## Plugins & Commands
 
 This plugin consists of three main plugins.
