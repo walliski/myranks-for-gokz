@@ -48,6 +48,11 @@ selected mode, and the skillgroup for that mode. When using this, do not use `go
    procedures.
 3. Place the files in their correct folders. Remember translations and config files!
 
+## Changelog
+
+* **1.0.0** 20.10.2020
+  Initial Release
+
 ## Credits
 
 A large part of SQL queries and code in this plugin has been copy-pasted and changed from the original GOKZ plugins. I
