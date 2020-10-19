@@ -1,50 +1,62 @@
 # MyRanks for GOKZ
 
-> Note that this is still very much WIP, and can change fully without warning, whenever, however.
-> There will be a "real" release soon(tm), when things from the TODO list are done, and this has been tested a bit more.
+An attempt to bring Local ranks into GOKZ. The ranking system that this plugin uses is very similar to the one that
+KZTimer has, but also has some differences. The KZTimer ranking system spams the SQL server with a massive amounts of
+queries to calculate the player rank, which makes it very slow for players that have completed a lot of maps. This
+plugin instead utilizes Stored Procedures in the SQL server, so that we can make a few queries, but still large
+calculations in the SQL server itself.
 
-A desperate attempt to get the ranks from KZTimer into GOKZ, to close the feature gap a bit. While it tries to copy the
-same method as KZTimer does, there is one large difference. In KZTimer the plugin does thousands of SQL queries to
-calculate the rank for a player that has finished many maps. This is the main reason why the rank calculation is so
-slow.
+**This unfortunately means that SQLite databases are not supported!**
 
-MyRanks solves this, by utilizing stored procedures in the SQL server, which means that one query can trigger all the
-calculations that are needed to get a rank, which should (?) be a lot quicker.
+The score calculation has also been changed. KZTimer takes points from finished maps, LJ stats, challenges, and amount
+of map completions. In this plugin, the rank is calculated based on map finishes only. Biggest part of the points comes
+from which rank you get on the map itself, with a bonus if you are in the top 20, and a small participation award for
+first time completions.
 
-*This unfortunately means that SQL Lite databases are not supported!*
+## Plugins & Commands
 
-Oh... And this ranking does not (at least at the moment) care about anything else than pure map times. So you will not
-get extra points from challenges, you will not get extra points from LJs, or extra points from completing the same map
-1000 times, etc, etc.
+This plugin consists of three main plugins.
 
-## Features
+### Myranks
 
-* Shitty code (although a bit cleaned up...)!
-* Automatic calculation of score when you join!
-* Difficult plugin updates!
-* !score command that tells you your score, but not your rank!
+This is the main plugin that handles calculating score for players, parsing of skillgroups etc. With this plugin you
+will get access to the following commands:
+
+* `sm_rank <player>` - Opens a menu that shows the rank of a player on the server, or yourself if no player specified.
+* `sm_ranks` - Shows the "skillgroups", and how many points you need for them, in your current mode.
+* `sm_ranktop` - Opens a menu for you to browse the top ranked players in each mode.
+
+Admin commands:
+
+* `sm_recalculate_top` - Recalculates Top 100 ranks in each mode.
+
+### Myranks Chat
+
+This is a copy of the GOKZ Chat processing plugin. It takes care of adding your current mode and skillgroup in front of
+your name in the chat. When using this, do not use `gokz-chat.smx` at the same time. Configuration happens the same way
+as for GOKZ-Chat plugin.
+
+### Myranks Clantags
+
+This is a copy of the GOKZ Clantags plugin. It changes the clantag of players in the scoreboard to contain their current
+selected mode, and the skillgroup for that mode. When using this, do not use `gokz-clantags.smx` at the same time.
+
+## Installation / Update
+
+1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download this repository.
+2. Run the SQL files in the `sql` folder on your MySQL/MariaDB server in your GOKZ database, to create the stored
+   procedures.
+3. Place the files in their correct folders. Remember translations and config files!
 
 ## Credits
 
-Have taken example from a lot of things from GOKZ Plugin, and mangled it. Most noticeable the queries used in the stored
-procedures.
+A large part of SQL queries and code in this plugin has been copy-pasted and changed from the original GOKZ plugins. I
+have tried my best to mark these in places where the code has been used, and in the git history.
 
-## Installation
+## TODO / Other ideas
 
-Compile the plugin, it should only require GOKZ, nothing more. Copy it over to your server. Remember the translations!
+Some other ideas that could be implemented for this plugin:
 
-Make sure you are running MySQL/MariaDB. Put in the stored procedures from the `.sql` files in the `sql` folder into
-your GOKZ database. Then watch the world burn, because this is not tested with anything else than a random MariaDB
-version in Docker...
-
-## TODO
-
-What else could be done for this, to make it less of a POC, and more like a real thing? In no particular order:
-
-* "Named" ranks
-    * Show ranks in chat
-    * Show ranks on scoreboard
-    * !ranks command as menu instead?
-    * Set new Max score at some point, like when player finishes map?
-* Enable DB search for player !rank. :thinking:
+* Enable DB search for player !rank. Currently only for in-game players.
 * Foreign keys with delete cascade for the Myrank table?
+* Stored procedures as a part of the plugin?
