@@ -1,4 +1,5 @@
 #include <sourcemod>
+#include <myranks>
 #include <gokz/core>
 #include <gokz/localdb>
 #include <gokz/localranks>
@@ -15,10 +16,6 @@ public Plugin myinfo =
     url = ""
 };
 
-#define SG_NAME_MAXLENGTH 24
-#define SG_PERCENTAGE_MAXLENGTH 8
-#define SG_MAXCOUNT 32
-
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
 int gI_Score[MODE_COUNT][MAXPLAYERS + 1];
@@ -26,9 +23,9 @@ int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
 int gI_MaxScore[MODE_COUNT];
 bool gB_RecalculationInProgess = false;
 
-char gS_SkillGroupName[SG_MAXCOUNT][SG_NAME_MAXLENGTH];
-char gS_SkillGroupColor[SG_MAXCOUNT][SG_NAME_MAXLENGTH];
-float gF_SkillGroupPercentage[SG_MAXCOUNT];
+char gS_SkillGroupName[MYRANK_SG_MAXCOUNT][MYRANK_SG_NAME_MAXLENGTH];
+char gS_SkillGroupColor[MYRANK_SG_MAXCOUNT][MYRANK_SG_NAME_MAXLENGTH];
+float gF_SkillGroupPercentage[MYRANK_SG_MAXCOUNT];
 int gI_SkillGroupCount = 0;
 
 #include "myranks/db/sql.sp"
@@ -42,9 +39,19 @@ int gI_SkillGroupCount = 0;
 #include "myranks/db/recalculate_top.sp"
 #include "myranks/skillgroups.sp"
 #include "myranks/commands.sp"
+#include "myranks/natives.sp"
+#include "myranks/forwards.sp"
+
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
+{
+    CreateNatives();
+    RegPluginLibrary("myranks");
+    return APLRes_Success;
+}
 
 public void OnPluginStart()
 {
+    CreateGlobalForwards();
     LoadTranslations("myranks.phrases");
 
     RegisterCommands();
