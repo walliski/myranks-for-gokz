@@ -63,6 +63,8 @@ selected mode, and the skillgroup for that mode. When using this, do not use `go
 
 ## Changelog
 
+* **1.0.1** 20.10.2020
+  Fix max score/skillgroup calculation when player with max score gains more.
 * **1.0.0** 20.10.2020
   Initial Release
 
