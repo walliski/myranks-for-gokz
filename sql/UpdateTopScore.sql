@@ -2,7 +2,8 @@
 
 DELIMITER //
 
-CREATE OR REPLACE PROCEDURE UpdateTopScore(
+DROP PROCEDURE IF EXISTS UpdateTopScore;
+CREATE PROCEDURE UpdateTopScore(
     IN p_TopAmount INT(10),
     IN p_Mode TINYINT(3)
 )

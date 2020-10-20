@@ -2,7 +2,8 @@
 
 DELIMITER //
 
-CREATE OR REPLACE PROCEDURE PopulateBasedOnCompletedMaps(
+DROP PROCEDURE IF EXISTS PopulateBasedOnCompletedMaps;
+CREATE PROCEDURE PopulateBasedOnCompletedMaps(
     IN p_TopAmount INT(10),
     IN p_Mode TINYINT(3)
 )
