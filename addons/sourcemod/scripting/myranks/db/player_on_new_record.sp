@@ -50,12 +50,6 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
     }
 
     gI_Score[mode][client] = score;
-
-    if (score > gI_MaxScore[mode]) {
-        gI_MaxScore[mode] = score;
-        Call_OnMaxScoreChange(score, mode);
-    }
-
     gainedScore = gI_Score[mode][client] - gI_OldScore[mode][client];
 
     // If someone would happen to steal a rank while this is running update?
