@@ -8,6 +8,8 @@ calculations in the SQL server itself.
 
 **This unfortunately means that SQLite databases are not supported!**
 
+![Myranks Screenshot](https://github.com/walliski/myranks-for-gokz/blob/main/myrank_screenshots.png?raw=true)
+
 The score calculation has also been changed. KZTimer takes points from finished maps, LJ stats, challenges, and amount
 of map completions. In this plugin, the rank is calculated based on map finishes only. Biggest part of the points comes
 from which rank you get on the map itself, with a bonus if you are in the top 20, and a small participation award for
