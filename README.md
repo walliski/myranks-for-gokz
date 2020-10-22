@@ -65,9 +65,9 @@ selected mode, and the skillgroup for that mode. When using this, do not use `go
 
 ## Changelog
 
-* **1.0.1** 20.10.2020
+* **1.0.1** 20.10.2020  
   Fix max score/skillgroup calculation when player with max score gains more.
-* **1.0.0** 20.10.2020
+* **1.0.0** 20.10.2020  
   Initial Release
 
 ## Credits
@@ -82,3 +82,18 @@ Some other ideas that could be implemented for this plugin:
 * Enable DB search for player !rank. Currently only for in-game players.
 * Foreign keys with delete cascade for the Myrank table?
 * Stored procedures as a part of the plugin?
+* Spam protection for chat?
+* !profile command
+  * Content:
+    * Player name
+    * Steamid
+    * Last Seen
+    * Rank
+    * Score (skillgroup)
+    * Next skillgroup
+    * How many pro times?
+    * How many tp times? (based on what? Ranked maps? How about Vanilla?)
+  * List finished maps
+  * List unfinished maps
+* Check if map is in ranked pool, and show a different message on finish if it isnt?
+* Minimum points for skillgroup?
