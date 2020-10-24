@@ -27,7 +27,7 @@ you only have to do this on one server.
 
 ## Plugins & Commands
 
-This plugin consists of three main plugins.
+This plugin has in addition to the main plugin some other helper plugins that adds more functionality.
 
 ### Myranks
 
