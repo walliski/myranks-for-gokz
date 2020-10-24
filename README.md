@@ -53,6 +53,27 @@ as for GOKZ-Chat plugin.
 This is a copy of the GOKZ Clantags plugin. It changes the clantag of players in the scoreboard to contain their current
 selected mode, and the skillgroup for that mode. When using this, do not use `gokz-clantags.smx` at the same time.
 
+### Myranks Kicker
+
+This plugin will kick players that do not fulfill requirements on either score, skillgroup or both. In case you do not
+have a server that is limited to any Score/Skillgroup, you do not need to use this plugin.
+
+Configuration file will be generated in `cfg/sourcemod/myranks/myranks-kicker.cfg`:
+
+```
+// This skillgroup and higher will not be kicked. First skillgroup in skillgroup.cfg is number 0.
+// -
+// Default: "0"
+// Minimum: "0.000000"
+myrank_minimum_allowed_skillgroup "0"
+
+// This score and higher will not be kicked.
+// -
+// Default: "0"
+// Minimum: "0.000000"
+myrank_minimum_allowed_score "0"
+```
+
 ## Installation / Update
 
 1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download this repository.
@@ -97,3 +118,4 @@ Some other ideas that could be implemented for this plugin:
   * List unfinished maps
 * Check if map is in ranked pool, and show a different message on finish if it isnt?
 * Minimum points for skillgroup?
+* Add "minimum rank" for the Kicker plugin.

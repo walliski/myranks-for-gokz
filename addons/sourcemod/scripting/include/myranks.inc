@@ -64,3 +64,13 @@ forward void Myrank_OnScoreChange(int client, int newScore, int mode);
 */
 
 forward void Myrank_OnMaxScoreChange(int newScore, int mode);
+
+/*
+ * Called when a players score is loaded the first time.
+ *
+ * @param client      For which client the score changed
+ * @param newScore    The new score for the client
+ * @param mode        In which mode the score changed
+*/
+
+forward void Myrank_OnScoreChange(int client, int newScore, int mode);
