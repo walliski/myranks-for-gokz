@@ -45,6 +45,7 @@ public void DB_TxnSuccess_SetupClient(Handle db, DataPack data, int numQueries, 
             int score = SQL_FetchInt(results[queryIndex], 0);
             gI_Score[i][client] = score;
             Call_OnScoreChange(client, score, i);
+            Call_OnInitialScoreLoad(client, score, i);
         }
     }
 }
