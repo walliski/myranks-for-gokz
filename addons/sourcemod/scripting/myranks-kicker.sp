@@ -40,7 +40,7 @@ void CreateConVars()
 
 public void Myrank_OnInitialScoreLoad(int client, int newScore, int mode)
 {
-    if (mode != GOKZ_GetDefaultMode()) {
+    if (mode != GOKZ_GetDefaultMode() || CheckCommandAccess(client, "myrank_kicker_immunity", ADMFLAG_RESERVATION)) {
         return;
     }
 

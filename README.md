@@ -74,6 +74,17 @@ myrank_minimum_allowed_skillgroup "0"
 myrank_minimum_allowed_score "0"
 ```
 
+In addition to this, there is immunity also. By default, anyone with the Reservation admin access are immune to being
+kicked. You can configure this by using SourceMod overrides. To change the immunity to admins only for example, use
+overrides like this:
+
+```
+Overrides
+{
+    "myrank_kicker_immunity" "b"
+}
+```
+
 ## Installation / Update
 
 1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download this repository.
