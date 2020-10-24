@@ -56,7 +56,8 @@ selected mode, and the skillgroup for that mode. When using this, do not use `go
 ### Myranks Kicker
 
 This plugin will kick players that do not fulfill requirements on either score, skillgroup or both. In case you do not
-have a server that is limited to any Score/Skillgroup, you do not need to use this plugin.
+have a server that is limited to any Score/Skillgroup, you do not need to use this plugin. The mode that is used for
+checking players, is the default mode from GOKZ (by default KZTimer in GOKZ).
 
 Configuration file will be generated in `cfg/sourcemod/myranks/myranks-kicker.cfg`:
 
