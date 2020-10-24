@@ -98,6 +98,8 @@ Overrides
 
 ## Changelog
 
+* **1.1.0** 24.10.2020  
+  Added Kicker plugin that can be used to make a "REGULARS ONLY" or similar server.
 * **1.0.1** 20.10.2020  
   Fix max score/skillgroup calculation when player with max score gains more.
 * **1.0.0** 20.10.2020  
