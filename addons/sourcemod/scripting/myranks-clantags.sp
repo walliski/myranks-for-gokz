@@ -82,7 +82,7 @@ public void Myrank_OnMaxScoreChange(int newScore, int mode)
 
 void UpdateClanTag(int client)
 {
-    if (IsClientInGame(client) && !IsFakeClient(client))
+    if (client > 0 && IsClientInGame(client) && !IsFakeClient(client))
     {
         int mode = GOKZ_GetCoreOption(client, Option_Mode);
         int score = Myrank_GetScore(client, mode);
