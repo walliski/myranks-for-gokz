@@ -1,0 +1,15 @@
+"Phrases"
+{
+	"Score Kick"
+	{
+		// You do not have enough score in mode: KZT. Needed: 2000
+		"#format"	"{1:s},{2:d}"
+		"en"		"You do not have enough score in mode: {1}. Needed: {2}"
+	}
+	"Skillgroup Kick"
+	{
+		// You are not high enough skillgroup in mode: KZT. Needed: Skilled+
+		"#format"	"{1:s},{2:s}"
+		"en"		"You are not high enough skillgroup in mode: {1}. Needed: {2}"
+	}
+}
