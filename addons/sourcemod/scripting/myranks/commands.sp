@@ -91,11 +91,11 @@ bool IsSpammingCommands(int client, bool printMessage = true)
 {
     float currentTime = GetEngineTime();
     float timeSinceLastCommand = currentTime - lastCommandTime[client];
-    if (timeSinceLastCommand < LR_COMMAND_COOLDOWN)
+    if (timeSinceLastCommand < MYRANK_COMMAND_COOLDOWN)
     {
         if (printMessage)
         {
-            GOKZ_PrintToChat(client, true, "%t", "Please Wait Before Using Command", LR_COMMAND_COOLDOWN - timeSinceLastCommand + 0.1);
+            GOKZ_PrintToChat(client, true, "%t", "Please Wait Before Using Command", MYRANK_COMMAND_COOLDOWN - timeSinceLastCommand + 0.1);
         }
         return true;
     }
