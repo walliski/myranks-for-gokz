@@ -186,13 +186,13 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
 
     if (IsSpectating(client))
     {
-        GOKZ_PrintToChatAll(false, "{default}* %s | [%s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
+        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] * {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
         PrintToConsoleAll("* %s : %s", sanitisedName, sanitisedMessage);
         PrintToServer("* %s : %s", sanitisedName, sanitisedMessage);
     }
     else
     {
-        GOKZ_PrintToChatAll(false, "%s | [%s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
+        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
         PrintToConsoleAll("%s : %s", sanitisedName, sanitisedMessage);
         PrintToServer("%s : %s", sanitisedName, sanitisedMessage);
     }
