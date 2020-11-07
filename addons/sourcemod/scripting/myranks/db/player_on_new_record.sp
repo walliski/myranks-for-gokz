@@ -42,6 +42,7 @@ public void DB_TxnSuccess_OnNewRecord(Handle db, DataPack data, int numQueries, 
     if (SQL_FetchRow(results[2]))
     {
         rank = SQL_FetchInt(results[2], 0);
+        rank += 1; // SQL counts amount of players with more score than you.
     }
 
     if (SQL_FetchRow(results[3]))

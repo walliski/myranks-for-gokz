@@ -63,11 +63,20 @@ public void DB_TxnSuccess_OpenPlayerRank(Handle db, DataPack data, int numQuerie
         if (SQL_FetchRow(results[queryIndex + 1]))
         {
             rank = SQL_FetchInt(results[queryIndex + 1], 0);
+            rank += 1; // SQL counts amount of players with more score than you.
         }
 
         if (SQL_FetchRow(results[queryIndex + 2]))
         {
             lowestRank = SQL_FetchInt(results[queryIndex + 2], 0);
+        }
+
+        // If you have 0 score, SQL for lowestRank and your rank, will both return all players that have rank, so same amount.
+        // The +1 for rank that normally works, will make your rank bigger than the total amount of ranked players, as
+        // you are unranked, and not included in the total amount of ranked player count. So we increase the total amount
+        // of ranked players.
+        if (rank > lowestRank) {
+            lowestRank = rank;
         }
 
         FormatEx(display, sizeof(display), "%T", "Player Rank - Content", client, gC_ModeNames[i], rank, lowestRank, score);

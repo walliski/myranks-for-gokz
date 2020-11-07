@@ -16,7 +16,7 @@ FROM Myrank \
     INNER JOIN Players ON Players.SteamID32=Myrank.SteamID32 \
     WHERE Players.Cheater=0 \
     AND Mode=%d \
-    AND Score >= \
+    AND Score > \
         (SELECT Score \
         FROM Myrank \
         INNER JOIN Players ON Players.SteamID32=Myrank.SteamID32 \
