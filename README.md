@@ -98,6 +98,13 @@ Overrides
 
 ## Changelog
 
+* **1.1.1** 8.11.2020  
+  - Correctly give PRO bonus points **REQUIRES UPDATING GetMapScore SQL PROCEDURE!**. Not doing it wont break anything,
+    but this fix will not work. Similarly you can update the procedure without updating the plugin itself without
+    breaking things.
+  - Increased !ranktop to top 100 instead of 20.
+  - Changed formatting of chat messages a bit, is now: `[KZT | SKILLED] Derp : Hurrdidurr`.
+  - Calculate rank for unranked players correctly.
 * **1.1.0** 24.10.2020  
   Added Kicker plugin that can be used to make a "REGULARS ONLY" or similar server.
 * **1.0.1** 20.10.2020  
