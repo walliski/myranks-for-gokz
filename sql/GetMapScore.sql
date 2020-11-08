@@ -69,7 +69,7 @@ BEGIN
         SET PercentPro = 1.0 + (1.0/CAST(TotalCountPro AS DECIMAL)) - (CAST(RankPro AS DECIMAL) / CAST(TotalCountPro AS DECIMAL));
         SET Score = Score + CEILING(200.0 * PercentPro);
 
-        CASE Rank
+        CASE RankPro
             WHEN 1 THEN SET Score = Score + 600;
             WHEN 2 THEN SET Score = Score + 500;
             WHEN 3 THEN SET Score = Score + 400;
