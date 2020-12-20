@@ -2,7 +2,7 @@
 
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS UpdatePlayerScore;
+DROP PROCEDURE IF EXISTS UpdatePlayerScore //
 CREATE PROCEDURE UpdatePlayerScore(
     IN p_SteamID32 INT(10),
     IN p_Mode TINYINT(3)

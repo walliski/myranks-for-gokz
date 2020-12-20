@@ -3,7 +3,7 @@
 
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS ReloadAllPlayers;
+DROP PROCEDURE IF EXISTS ReloadAllPlayers //
 CREATE PROCEDURE ReloadAllPlayers(
     IN p_Mode TINYINT(3)
 )
