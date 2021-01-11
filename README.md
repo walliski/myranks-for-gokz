@@ -6,7 +6,8 @@ queries to calculate the player rank, which makes it very slow for players that 
 plugin instead utilizes Stored Procedures in the SQL server, so that we can make a few queries, but still large
 calculations in the SQL server itself.
 
-**This unfortunately means that SQLite databases are not supported!**
+**This unfortunately means that SQLite databases are not supported! And since this plugin heavily relies on GOKZ (and
+uses its DB connection), it means that your GOKZ installation also needs to run on MySQL!**
 
 ![Myranks Screenshot](https://github.com/walliski/myranks-for-gokz/blob/main/myrank_screenshots.png?raw=true)
 
