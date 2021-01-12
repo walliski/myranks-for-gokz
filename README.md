@@ -96,6 +96,7 @@ Overrides
    second is the mode (vnl 0, skz 1, kzt 2), run it for each mode), to populate score for the players that have most
    records on your server. This will make the ranks less volatile in the beginning.
 3. Place the files in their correct folders. Remember translations and config files!
+3. Update the ranked mappool as explained in the introduction.
 
 ## Changelog
 
