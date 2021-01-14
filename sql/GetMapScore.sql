@@ -9,7 +9,7 @@ CREATE PROCEDURE GetMapScore(
 )
 
 BEGIN
-    DECLARE Rank INT;
+    DECLARE `Rank` INT;
     DECLARE TotalCount INT;
     DECLARE RankPro INT;
     DECLARE TotalCountPro INT;
@@ -43,7 +43,7 @@ BEGIN
             INNER JOIN Players ON Players.SteamID32=Times.SteamID32
             WHERE Players.Cheater=0 AND Times.SteamID32=p_SteamID32 AND Times.MapCourseID=p_MapCourseID
             AND Times.Mode=p_Mode)
-    INTO Rank;
+    INTO `Rank`;
 
     SELECT COUNT(DISTINCT Times.SteamID32)
     FROM Times
@@ -59,7 +59,7 @@ BEGIN
     AND Times.MapCourseID=p_MapCourseID AND Times.Mode=p_Mode
     INTO TotalCount;
 
-    SET Percent = 1.0 + (1.0/CAST(TotalCount AS DECIMAL)) - (CAST(Rank AS DECIMAL) / CAST(TotalCount AS DECIMAL));
+    SET Percent = 1.0 + (1.0/CAST(TotalCount AS DECIMAL)) - (CAST(`Rank` AS DECIMAL) / CAST(TotalCount AS DECIMAL));
 
     -- Its not a given that a player has a PRO time
     IF RankPro > 0 THEN
@@ -100,7 +100,7 @@ BEGIN
     -- But he always has a TP time if he has finished
     SET Score = Score + CEILING(100.0 * Percent);
 
-    CASE Rank
+    CASE `Rank`
         WHEN 1 THEN SET Score = Score + 400;
         WHEN 2 THEN SET Score = Score + 300;
         WHEN 3 THEN SET Score = Score + 200;
