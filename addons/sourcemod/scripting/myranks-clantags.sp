@@ -21,7 +21,27 @@ public Plugin myinfo =
 
 #define TAG_MAX_LENGTH 15
 
+ConVar gCV_myranks_clantags_admin;
+ConVar gCV_myranks_clantags_vip;
+
 // =====[ CLIENT EVENTS ]=====
+
+void CreateConVars()
+{
+    AutoExecConfig_SetFile("myranks-clantags", "sourcemod/myranks");
+    AutoExecConfig_SetCreateFile(true);
+
+    gCV_myranks_clantags_admin = AutoExecConfig_CreateConVar("myranks_clantags_admin", "1", "Should the ADMIN tag be shown instead of skillgroup?", _, true, 0.0, true, 1.0);
+    gCV_myranks_clantags_vip = AutoExecConfig_CreateConVar("myranks_clantags_vip", "1", "Should the VIP tag be shown instead of skillgroup?", _, true, 0.0, true, 1.0);
+
+    AutoExecConfig_ExecuteFile();
+    AutoExecConfig_CleanFile();
+}
+
+public void OnPluginStart()
+{
+    CreateConVars();
+}
 
 // From Sourcebans++
 // https://github.com/sbpp/sourcebans-pp/blob/315f08f35dda1c196ec544dd3f0160d148ec569f/game/addons/sourcemod/scripting/sbpp_main.sp
@@ -92,7 +112,13 @@ void UpdateClanTag(int client)
         Myrank_GetSkillGroupName(skillGroup, skillGroupName);
 
         char buffer[TAG_MAX_LENGTH];
-        Format(buffer, TAG_MAX_LENGTH, "%s | %s", gC_ModeNamesShort[mode], skillGroupName);
+
+        if (gCV_myranks_clantags_admin.BoolValue && CheckCommandAccess(client, "myranks_tags_admin", ADMFLAG_GENERIC))
+            Format(buffer, TAG_MAX_LENGTH, "%s | ADMIN", gC_ModeNamesShort[mode]);
+        else if (gCV_myranks_clantags_vip.BoolValue && CheckCommandAccess(client, "myranks_tags_vip", ADMFLAG_RESERVATION))
+            Format(buffer, TAG_MAX_LENGTH, "%s | VIP", gC_ModeNamesShort[mode]);
+        else
+            Format(buffer, TAG_MAX_LENGTH, "%s | %s", gC_ModeNamesShort[mode], skillGroupName);
 
         CS_SetClientClanTag(client, buffer);
     }
