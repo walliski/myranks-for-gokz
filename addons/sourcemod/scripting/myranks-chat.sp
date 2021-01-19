@@ -179,23 +179,20 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
     char skillGroupColor[MYRANK_SG_NAME_MAXLENGTH];
     Myrank_GetSkillGroupColor(skillGroup, skillGroupColor);
 
+    char isSpec[3];
+    if (IsSpectating(client))
+        strcopy(isSpec, sizeof(isSpec), "* ");
+    else
+        strcopy(isSpec, sizeof(isSpec), "");
+
     if (TrimString(sanitisedMessage) == 0)
     {
         return;
     }
 
-    if (IsSpectating(client))
-    {
-        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] * {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
-        PrintToConsoleAll("* %s : %s", sanitisedName, sanitisedMessage);
-        PrintToServer("* %s : %s", sanitisedName, sanitisedMessage);
-    }
-    else
-    {
-        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
-        PrintToConsoleAll("%s : %s", sanitisedName, sanitisedMessage);
-        PrintToServer("%s : %s", sanitisedName, sanitisedMessage);
-    }
+    GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] %s{lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, isSpec, sanitisedName, sanitisedMessage);
+    PrintToConsoleAll("%s%s : %s", isSpec, sanitisedName, sanitisedMessage);
+    PrintToServer("%s%s : %s", isSpec, sanitisedName, sanitisedMessage);
 }
 
 bool UsedBaseChat(int client, const char[] command, const char[] message)
