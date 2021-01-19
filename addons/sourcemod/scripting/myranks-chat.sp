@@ -192,7 +192,7 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
 
     char chattag[40];
     if (gCV_myranks_chattags_admin.BoolValue && CheckCommandAccess(client, "myranks_tags_admin", ADMFLAG_GENERIC))
-        strcopy(chattag, sizeof(chattag), " {default}| {lime}ADMIN{default}");
+        strcopy(chattag, sizeof(chattag), " {default}| {darkred}ADMIN{default}");
     else if (gCV_myranks_chattags_vip.BoolValue && CheckCommandAccess(client, "myranks_tags_vip", ADMFLAG_RESERVATION))
         strcopy(chattag, sizeof(chattag), " {default}| {gold}VIP{default}");
     else
