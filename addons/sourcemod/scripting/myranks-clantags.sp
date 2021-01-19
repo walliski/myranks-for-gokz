@@ -4,6 +4,8 @@
 
 #include <cstrike>
 
+#include <autoexecconfig>
+
 #include <gokz/core>
 #include <myranks>
 
