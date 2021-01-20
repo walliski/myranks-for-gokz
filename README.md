@@ -164,6 +164,13 @@ Overrides
 
 ## Changelog
 
+* **1.2.0** 20.01.2021
+  - Added ADMIN/VIP tags to chat messages, configured server-wide with overrides and cvars.
+  - Added ADMIN/VIP tags to scoreboard, that replaces the skillgroup. Configured server-wide with overrides and cvars.
+  - Set clantag after admin check. To fix ADMIN/VIP tag not showing up, but might also help with the bug that sometimes
+    the clantag shows VNL for players.
+  - Fixed SQL procedure syntax. (Does not require updating anything, but will make new installs work better.)
+
 * **1.1.1** 8.11.2020  
   - Correctly give PRO bonus points **REQUIRES UPDATING GetMapScore SQL PROCEDURE!**. Not doing it wont break anything,
     but this fix will not work. Similarly you can update the procedure without updating the plugin itself without
