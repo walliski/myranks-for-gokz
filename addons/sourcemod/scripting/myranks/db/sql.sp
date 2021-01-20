@@ -48,6 +48,8 @@ FROM Myrank \
 
 char mode_get_max_score[] = "SELECT ROUND(AVG(Score)) FROM (SELECT Score FROM Myrank WHERE Mode=%d ORDER BY Score DESC LIMIT 5) top5;";
 
+char map_ranked_count_per_mapid[] = "SELECT count(*) FROM Maps WHERE MapID=%d AND InRankedPool=1";
+
 char trigger_score_update[] = "CALL UpdatePlayerScore(%d, %d)";
 
 char trigger_recalculate_top[] = "CALL UpdateTopScore(%d, %d)";

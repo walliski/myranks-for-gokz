@@ -29,6 +29,10 @@
 	{
 		"en"		"{grey}Rank recalculation complete!"
 	}
+	"Map Not In Local Ranked Pool"
+	{
+		"en"		"{grey}The current map is not in the local ranked pool. Score gained this run will be awarded automatically when it is added."
+	}
 
 	// Menu
 

@@ -18,6 +18,9 @@ public Plugin myinfo =
 
 Database gH_DB = null;
 DatabaseType g_DBType = DatabaseType_None;
+
+bool gB_mapInRanked = false;
+
 int gI_Score[MODE_COUNT][MAXPLAYERS + 1];
 int gI_OldScore[MODE_COUNT][MAXPLAYERS + 1];
 int gI_MaxScore[MODE_COUNT];
@@ -33,6 +36,7 @@ int gI_SkillGroupCount = 0;
 #include "myranks/db/setup_client.sp"
 #include "myranks/db/setup_database.sp"
 #include "myranks/db/setup_maxscore.sp"
+#include "myranks/db/set_map_ranked_status.sp"
 #include "myranks/db/player_on_new_record.sp"
 #include "myranks/db/player_ranktopmenu.sp"
 #include "myranks/db/player_rankmenu.sp"
@@ -93,6 +97,13 @@ public void GOKZ_DB_OnDatabaseConnect(DatabaseType DBType)
     DB_CreateTables();
 }
 
+public void GOKZ_DB_OnMapSetup(int mapID)
+{
+    gB_mapInRanked = false; // Reset this to false to begin with.
+
+    DB_SetMapRankedStatus(mapID);
+}
+
 public void GOKZ_LR_OnTimeProcessed(
     int client,
     int steamID,
@@ -118,6 +129,12 @@ public void GOKZ_LR_OnTimeProcessed(
 
     if (pbDiff < 0 || pbDiffPro < 0 || firstTime || firstTimePro) // Negative diffs means new best time!
     {
+        if (!gB_mapInRanked)
+        {
+            GOKZ_PrintToChatAll(true, "%t", "Map Not In Local Ranked Pool");
+            return;
+        }
+
         DB_OnNewRecord(client, steamID, mode);
     }
 }

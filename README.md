@@ -211,7 +211,6 @@ Some other ideas that could be implemented for this plugin:
     * How many tp times? (based on what? Ranked maps? How about Vanilla?)
   * List finished maps
   * List unfinished maps
-* Check if map is in ranked pool, and show a different message on finish if it isnt?
 * Minimum points for skillgroup?
 * Add "minimum rank" for the Kicker plugin.
 * Add possibility for players to individually turn on/off their own ADMIN and VIP tags.
