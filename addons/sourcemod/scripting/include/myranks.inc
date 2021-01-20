@@ -4,7 +4,7 @@
 #endif
 #define _myrank_included_
 
-#define MYRANK_VERSION "1.1.1"
+#define MYRANK_VERSION "1.2.0"
 
 #define MYRANK_SG_NAME_MAXLENGTH 24
 #define MYRANK_SG_PERCENTAGE_MAXLENGTH 8

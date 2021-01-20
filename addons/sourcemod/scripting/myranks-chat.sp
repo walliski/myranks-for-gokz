@@ -30,6 +30,8 @@ bool gB_BaseComm;
 
 ConVar gCV_gokz_chat_processing;
 ConVar gCV_gokz_connection_messages;
+ConVar gCV_myranks_chattags_admin;
+ConVar gCV_myranks_chattags_vip;
 
 
 
@@ -131,6 +133,9 @@ void CreateConVars()
     gCV_gokz_chat_processing = AutoExecConfig_CreateConVar("gokz_chat_processing", "1", "Whether GOKZ processes player chat messages.", _, true, 0.0, true, 1.0);
     gCV_gokz_connection_messages = AutoExecConfig_CreateConVar("gokz_connection_messages", "1", "Whether GOKZ handles connection and disconnection messages.", _, true, 0.0, true, 1.0);
 
+    gCV_myranks_chattags_admin = AutoExecConfig_CreateConVar("myranks_chattags_admin", "1", "Should the ADMIN tag be shown in chat?", _, true, 0.0, true, 1.0);
+    gCV_myranks_chattags_vip = AutoExecConfig_CreateConVar("myranks_chattags_vip", "1", "Should the VIP tag be shown in chat?", _, true, 0.0, true, 1.0);
+
     AutoExecConfig_ExecuteFile();
     AutoExecConfig_CleanFile();
 }
@@ -179,23 +184,28 @@ void OnClientSayCommand_ChatProcessing(int client, const char[] command, const c
     char skillGroupColor[MYRANK_SG_NAME_MAXLENGTH];
     Myrank_GetSkillGroupColor(skillGroup, skillGroupColor);
 
+    char isSpec[3];
+    if (IsSpectating(client))
+        strcopy(isSpec, sizeof(isSpec), "* ");
+    else
+        strcopy(isSpec, sizeof(isSpec), "");
+
+    char chattag[40];
+    if (gCV_myranks_chattags_admin.BoolValue && CheckCommandAccess(client, "myranks_tags_admin", ADMFLAG_GENERIC))
+        strcopy(chattag, sizeof(chattag), " {default}| {darkred}ADMIN{default}");
+    else if (gCV_myranks_chattags_vip.BoolValue && CheckCommandAccess(client, "myranks_tags_vip", ADMFLAG_RESERVATION))
+        strcopy(chattag, sizeof(chattag), " {default}| {gold}VIP{default}");
+    else
+        strcopy(chattag, sizeof(chattag), "");
+
     if (TrimString(sanitisedMessage) == 0)
     {
         return;
     }
 
-    if (IsSpectating(client))
-    {
-        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] * {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
-        PrintToConsoleAll("* %s : %s", sanitisedName, sanitisedMessage);
-        PrintToServer("* %s : %s", sanitisedName, sanitisedMessage);
-    }
-    else
-    {
-        GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}] {lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, sanitisedName, sanitisedMessage);
-        PrintToConsoleAll("%s : %s", sanitisedName, sanitisedMessage);
-        PrintToServer("%s : %s", sanitisedName, sanitisedMessage);
-    }
+    GOKZ_PrintToChatAll(false, "[{purple}%s {default}| %s%s{default}%s] %s{lime}%s{default} : %s", gC_ModeNamesShort[mode], skillGroupColor, skillGroupName, chattag, isSpec, sanitisedName, sanitisedMessage);
+    PrintToConsoleAll("%s%s : %s", isSpec, sanitisedName, sanitisedMessage);
+    PrintToServer("%s%s : %s", isSpec, sanitisedName, sanitisedMessage);
 }
 
 bool UsedBaseChat(int client, const char[] command, const char[] message)
