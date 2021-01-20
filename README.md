@@ -215,3 +215,6 @@ Some other ideas that could be implemented for this plugin:
 * Minimum points for skillgroup?
 * Add "minimum rank" for the Kicker plugin.
 * Add possibility for players to individually turn on/off their own ADMIN and VIP tags.
+* Reset variables on map change?
+  * It could be that some code is done with the assumption that all global variables are re-initialized after map
+    change, which they are not. So they should be reset either when the plugin loads, or when clients connect.
