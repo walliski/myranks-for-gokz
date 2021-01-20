@@ -63,7 +63,7 @@ public void OnConfigsExecuted()
     }
 }
 
-public void OnClientPutInServer(int client)
+public void OnClientPostAdminCheck(int client)
 {
     UpdateClanTag(client);
 }
