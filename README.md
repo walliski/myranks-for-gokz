@@ -165,6 +165,12 @@ Overrides
 
 ## Changelog
 
+* **1.2.1** 21.01.2021
+  - Show message instead of "gained 0 score" when finishing a map not in local rank pool. Will hopefully remove some
+    confusion when players are running new maps that have not yet been added to the local ranked pool. Instead of saying
+    that the player gained 0 score, it will now say that the map is not in the local ranked pool, and score will be
+    rewarded when it is added.
+
 * **1.2.0** 20.01.2021
   - Added ADMIN/VIP tags to chat messages, configured server-wide with overrides and cvars.
   - Added ADMIN/VIP tags to scoreboard, that replaces the skillgroup. Configured server-wide with overrides and cvars.
