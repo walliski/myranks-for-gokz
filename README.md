@@ -153,7 +153,8 @@ Overrides
 
 ## Installation / Update
 
-1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download this repository.
+1. Compile the plugin (requires GOKZ, sourcemod-colors and autoexecconfig), or download a .zip release from the releases
+   page.
 2. Run the SQL files in the `sql` folder on your MySQL/MariaDB server in your GOKZ database, to create the stored
    procedures. The `.sql` files do not need to go to your game server!
 3. Optionally manually run the `PopulateBasedOnCompletedMaps(100,2)` stored procedure (first argument is top X players, 
