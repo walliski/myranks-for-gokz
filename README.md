@@ -165,6 +165,9 @@ Overrides
 
 ## Changelog
 
+* **1.2.2** 21.01.2021
+  - (Hopefully) Fixed bug where mode on Scoreboard tag would load in as VNL after map changes.
+
 * **1.2.1** 21.01.2021
   - Show message instead of "gained 0 score" when finishing a map not in local rank pool. Will hopefully remove some
     confusion when players are running new maps that have not yet been added to the local ranked pool. Instead of saying
