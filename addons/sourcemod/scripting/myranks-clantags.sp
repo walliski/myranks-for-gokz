@@ -1,6 +1,7 @@
 // This file is stole from GOKZ, and later modified to add the Myranks functionality
 
 #include <sourcemod>
+#include <clientprefs>
 
 #include <cstrike>
 
@@ -64,6 +65,19 @@ public void OnConfigsExecuted()
 }
 
 public void OnClientPostAdminCheck(int client)
+{
+    if (!AreClientCookiesCached(client)) // If cookies have not loaded yet, GOKZ options surely are not, do not set tag here.
+    {
+        return;
+    }
+
+    UpdateClanTag(client);
+}
+
+// We don't know if options are loaded at the time admin rights are loaded, so set tag here also to be sure.
+// Else players might end up with VNL on the scoreboard.
+// GOKZ_OnOptionChanged only gets called when the option actually changes, not when its loaded.
+public void GOKZ_OnOptionsLoaded(int client)
 {
     UpdateClanTag(client);
 }
