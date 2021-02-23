@@ -57,6 +57,7 @@ public void OnPluginStart()
 {
     CreateGlobalForwards();
     LoadTranslations("myranks.phrases");
+    LoadTranslations("common.phrases.txt"); // For FindTarget
 
     RegisterCommands();
 }
