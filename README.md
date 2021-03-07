@@ -166,10 +166,10 @@ Overrides
 ## Changelog
 
 * **1.2.3** 07.03.2021
-  - Calculate score with low priority in initial setup
+  - Calculate score with low priority in initial setup.
     Separates the player insertion and initial score load, so that we can do the important stuff with high prio, and the
     score calculation with low prio.
-  - Fix missing translations error in !rank command
+  - Fix missing translations error in !rank command.
     When targeting an invalid target the server would throw an error about missing translations. This is now fixed by
     loading the correct translation file.
 
@@ -177,31 +177,35 @@ Overrides
   - (Hopefully) Fixed bug where mode on Scoreboard tag would load in as VNL after map changes.
 
 * **1.2.1** 21.01.2021
-  - Show message instead of "gained 0 score" when finishing a map not in local rank pool. Will hopefully remove some
-    confusion when players are running new maps that have not yet been added to the local ranked pool. Instead of saying
-    that the player gained 0 score, it will now say that the map is not in the local ranked pool, and score will be
-    rewarded when it is added.
+  - Show message instead of "gained 0 score" when finishing a map not in local rank pool.
+    Will hopefully remove some confusion when players are running new maps that have not yet been added to the local
+    ranked pool. Instead of saying that the player gained 0 score, it will now say that the map is not in the local
+    ranked pool, and score will be rewarded when it is added.
 
 * **1.2.0** 20.01.2021
   - Added ADMIN/VIP tags to chat messages, configured server-wide with overrides and cvars.
   - Added ADMIN/VIP tags to scoreboard, that replaces the skillgroup. Configured server-wide with overrides and cvars.
-  - Set clantag after admin check. To fix ADMIN/VIP tag not showing up, but might also help with the bug that sometimes
-    the clantag shows VNL for players.
+  - Set clantag after admin check.
+    To fix ADMIN/VIP tag not showing up, but might also help with the bug that sometimes the clantag shows VNL for
+    players.
   - Fixed SQL procedure syntax. (Does not require updating anything, but will make new installs work better.)
 
-* **1.1.1** 8.11.2020  
-  - Correctly give PRO bonus points **REQUIRES UPDATING GetMapScore SQL PROCEDURE!**. Not doing it wont break anything,
-    but this fix will not work. Similarly you can update the procedure without updating the plugin itself without
-    breaking things.
+* **1.1.1** 8.11.2020
+  - Correctly give PRO bonus points **REQUIRES UPDATING GetMapScore SQL PROCEDURE!**.
+    Not doing it wont break anything, but this fix will not work. Similarly you can update the procedure without
+    updating the plugin itself without breaking things.
   - Increased !ranktop to top 100 instead of 20.
   - Changed formatting of chat messages a bit, is now: `[KZT | SKILLED] Derp : Hurrdidurr`.
   - Calculate rank for unranked players correctly.
-* **1.1.0** 24.10.2020  
-  Added Kicker plugin that can be used to make a "REGULARS ONLY" or similar server.
-* **1.0.1** 20.10.2020  
-  Fix max score/skillgroup calculation when player with max score gains more.
-* **1.0.0** 20.10.2020  
-  Initial Release
+
+* **1.1.0** 24.10.2020
+  - Added Kicker plugin that can be used to make a "REGULARS ONLY" or similar server.
+
+* **1.0.1** 20.10.2020
+  - Fix max score/skillgroup calculation when player with max score gains more.
+
+* **1.0.0** 20.10.2020
+  - Initial Release
 
 ## Credits
 
