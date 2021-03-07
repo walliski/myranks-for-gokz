@@ -165,6 +165,14 @@ Overrides
 
 ## Changelog
 
+* **1.2.3** 07.03.2021
+  - Calculate score with low priority in initial setup
+    Separates the player insertion and initial score load, so that we can do the important stuff with high prio, and the
+    score calculation with low prio.
+  - Fix missing translations error in !rank command
+    When targeting an invalid target the server would throw an error about missing translations. This is now fixed by
+    loading the correct translation file.
+
 * **1.2.2** 21.01.2021
   - (Hopefully) Fixed bug where mode on Scoreboard tag would load in as VNL after map changes.
 
