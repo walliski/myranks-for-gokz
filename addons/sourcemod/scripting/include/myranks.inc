@@ -39,7 +39,7 @@ native void Myrank_GetSkillGroupName(int skillGroup, char[] skillGroupName);
 native int Myrank_GetSkillGroup(int score, int mode);
 
 /*
- * Gets the skillgroup for a certain mode and score
+ * Gets the skillgroup for a certain client and mode
  *
  * @param client   The client to get score for
  * @param mode     The mode for which to get score
