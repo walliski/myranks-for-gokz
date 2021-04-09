@@ -161,7 +161,9 @@ Overrides
    second is the mode (vnl 0, skz 1, kzt 2), run it for each mode), to populate score for the players that have most
    records on your server. This will make the ranks less volatile in the beginning.
 3. Place the files in their correct folders. Remember translations and config files!
-3. Update the ranked mappool as explained in the introduction.
+3. Remove `gokz-chat.smx` and `gokz-clantags.smx`, this plugin has its own version that shows the ranks. They will be
+   automatically unloaded on first start if they exist.
+5. Update the ranked mappool as explained in the introduction.
 
 ## Changelog
 
