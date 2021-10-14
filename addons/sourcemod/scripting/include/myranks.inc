@@ -75,4 +75,4 @@ forward void Myrank_OnMaxScoreChange(int newScore, int mode);
  * @param mode        In which mode the score changed
 */
 
-forward void Myrank_OnScoreChange(int client, int newScore, int mode);
+forward void Myrank_OnInitialScoreLoad(int client, int newScore, int mode);
