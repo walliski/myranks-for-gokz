@@ -167,6 +167,15 @@ Overrides
 
 ## Changelog
 
+* **1.2.4** 14.10.2021
+  - Handle race condition in Kicker plugin.
+    Properly check that both admin and score have been loaded before checking if the player should be kicked. Should
+    solve issues where clients with reserved slot gets kicked because their admin rights are not loaded at the time the
+    score is loaded and the kicker triggers.
+  - Use correct skillgroup in kick message in Kicker
+    Previously the message would say "Needed:" and then the players skillgroup. Now it will say both the players
+    skillgroup, and the one that is actually needed.
+
 * **1.2.3** 07.03.2021
   - Calculate score with low priority in initial setup.
     Separates the player insertion and initial score load, so that we can do the important stuff with high prio, and the
