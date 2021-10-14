@@ -95,9 +95,11 @@ public void KickIfNotAllowed(int client)
     int skillGroup = Myrank_GetSkillGroup(newScore, mode);
 
     char skillGroupName[MYRANK_SG_NAME_MAXLENGTH];
+    char neededSkillGroupName[MYRANK_SG_NAME_MAXLENGTH];
     Myrank_GetSkillGroupName(skillGroup, skillGroupName);
+    Myrank_GetSkillGroupName(gCV_myrank_minimum_allowed_skillgroup.IntValue, neededSkillGroupName);
 
     if (skillGroup < gCV_myrank_minimum_allowed_skillgroup.IntValue) {
-        KickClient(client, "%t", "Skillgroup Kick", gC_ModeNamesShort[mode], skillGroupName);
+        KickClient(client, "%t", "Skillgroup Kick", gC_ModeNamesShort[mode], skillGroupName, neededSkillGroupName);
     }
 }
