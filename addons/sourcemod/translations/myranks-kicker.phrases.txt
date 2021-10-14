@@ -9,7 +9,7 @@
 	"Skillgroup Kick"
 	{
 		// You are not high enough skillgroup in mode: KZT. Needed: Skilled+
-		"#format"	"{1:s},{2:s}"
-		"en"		"You are not high enough skillgroup in mode: {1}. Needed: {2}"
+		"#format"	"{1:s},{2:s},{3:s}"
+		"en"		"You are not high enough skillgroup in mode: {1}. Your skillgroup: {2}. Needed: {3}"
 	}
 }

@@ -4,7 +4,7 @@
 #endif
 #define _myrank_included_
 
-#define MYRANK_VERSION "1.2.3"
+#define MYRANK_VERSION "1.2.4"
 
 #define MYRANK_SG_NAME_MAXLENGTH 24
 #define MYRANK_SG_PERCENTAGE_MAXLENGTH 8
@@ -75,4 +75,4 @@ forward void Myrank_OnMaxScoreChange(int newScore, int mode);
  * @param mode        In which mode the score changed
 */
 
-forward void Myrank_OnScoreChange(int client, int newScore, int mode);
+forward void Myrank_OnInitialScoreLoad(int client, int newScore, int mode);
