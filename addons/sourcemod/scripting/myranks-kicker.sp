@@ -19,6 +19,9 @@ public Plugin myinfo =
 ConVar gCV_myrank_minimum_allowed_skillgroup;
 ConVar gCV_myrank_minimum_allowed_score;
 
+bool gB_AdminLoaded[MAXPLAYERS + 1] = {false, ...};
+bool gB_ScoreLoaded[MAXPLAYERS + 1] = {false, ...};
+
 public void OnPluginStart()
 {
     LoadTranslations("myranks-kicker.phrases");
@@ -38,11 +41,52 @@ void CreateConVars()
     AutoExecConfig_CleanFile();
 }
 
-public void Myrank_OnInitialScoreLoad(int client, int newScore, int mode)
+public void OnClientConnected(int client)
 {
-    if (mode != GOKZ_GetDefaultMode() || CheckCommandAccess(client, "myrank_kicker_immunity", ADMFLAG_RESERVATION)) {
+    if (IsFakeClient(client))
+    {
         return;
     }
+
+    gB_AdminLoaded[client] = false;
+    gB_ScoreLoaded[client] = false;
+}
+
+public void OnClientPostAdminCheck(int client)
+{
+    if (IsFakeClient(client))
+    {
+        return;
+    }
+
+    gB_AdminLoaded[client] = true;
+    KickIfNotAllowed(client);
+}
+
+public void Myrank_OnInitialScoreLoad(int client, int newScore, int mode)
+{
+    if (mode != GOKZ_GetDefaultMode()) {
+        return;
+    }
+
+    gB_ScoreLoaded[client] = true;
+    KickIfNotAllowed(client);
+}
+
+public void KickIfNotAllowed(int client)
+{
+    // We need both admin rights and score loaded to proceed.
+    if (!gB_AdminLoaded[client] || !gB_ScoreLoaded[client]) {
+        return;
+    }
+
+    // Abort if player is immune.
+    if (CheckCommandAccess(client, "myrank_kicker_immunity", ADMFLAG_RESERVATION)) {
+        return;
+    }
+
+    int mode = GOKZ_GetDefaultMode();
+    int newScore = Myrank_GetScore(client, mode);
 
     if (newScore < gCV_myrank_minimum_allowed_score.IntValue) {
         KickClient(client, "%t", "Score Kick", gC_ModeNamesShort[mode], gCV_myrank_minimum_allowed_score.IntValue);
