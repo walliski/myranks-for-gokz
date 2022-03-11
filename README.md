@@ -1,5 +1,8 @@
 # MyRanks for GOKZ
 
+> **NOTE: With the release of GOKZ 3.0.0, and the Global ranking system, I do not see much use of continuing support
+> for this plugin. At the moment it will effectively break GOKZ if used with 3.0.0, so I recommend uninstalling it!**
+
 An attempt to bring Local ranks into GOKZ. The ranking system that this plugin uses is very similar to the one that
 KZTimer has, but also has some differences. The KZTimer ranking system spams the SQL server with a massive amounts of
 queries to calculate the player rank, which makes it very slow for players that have completed a lot of maps. This
